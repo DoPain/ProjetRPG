@@ -1,3 +1,5 @@
+package adventure_game;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +10,13 @@
  *
  * @author dmorax
  */
-public interface Description {
+public class Salle implements Description{
+    
+    
+     @Override
+    public String seDecrire(){
+    return "";
+    }
+    
     
 }
