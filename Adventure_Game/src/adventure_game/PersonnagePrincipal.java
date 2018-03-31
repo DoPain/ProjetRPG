@@ -12,10 +12,13 @@ package adventure_game;
  */
 public class PersonnagePrincipal extends Personnage implements Description{
 
+    
+    
     public PersonnagePrincipal(int pointsVies, int dommages, int vitesseAttaque) {
         super(pointsVies, dommages, vitesseAttaque);
     }
        
+    
      @Override
     public String seDecrire(){
     return "";

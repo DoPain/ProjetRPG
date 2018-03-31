@@ -10,6 +10,12 @@ package adventure_game;
  *
  * @author dmorax
  */
-public class Action {
+public class Action implements Description{
+
+    @Override
+    public String seDecrire() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }

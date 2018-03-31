@@ -13,22 +13,32 @@ package adventure_game;
 public abstract class Personnage {
     
     protected int pointsVie;
-    protected int dommagesBase;
+    protected int dommages;
     protected int vitesseAttaque;
 
     public Personnage(int pointsVie, int dommagesBase, int vitesseAttaque) {
         this.pointsVie = pointsVie;
-        this.dommagesBase = dommagesBase;
+        this.dommages = dommagesBase;
         this.vitesseAttaque = vitesseAttaque;
     }
     
     
-    Personnage John = new PersonnagePrincipal(100,30,5);
+    Personnage John = new PersonnagePrincipal(100,10,5);
     Personnage Zombie1 = new Ennemi(50, 10, 1);
     Personnage Zombie2 = new Ennemi(50, 20, 2);
     Personnage Zombie3 = new Ennemi(50, 30, 3);
     Personnage Zombie4 = new Ennemi(50, 40, 4);
     
+    public int getPointsVie(){
+        return this.pointsVie;
+    }
     
+    public int getDommages(){
+        return this.dommages;
+    }
+    
+    public int getVitesseAttaque(){
+        return this.vitesseAttaque;
+    }
     
 }
