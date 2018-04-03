@@ -1,7 +1,7 @@
 package adventure_game;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,14 +15,16 @@ import java.util.List;
  */
 public class Salle implements Description{
     
-    List<Item> listItem;
+    //ArrayList<Item> listItem;
     private static ArrayList<Salle> salles;
     private String description;
-    private Ennemi ennemi1;
+    private Ennemi ennemi;
+    private Item item;
     
-    public Salle(String description, Ennemi ennemi1){
+    public Salle(String description, Ennemi ennemi, Item item){
         this.description = description;
-        this.ennemi1 = ennemi1;
+        this.ennemi = ennemi;
+        this.item = item;
     }
     
      @Override
@@ -30,14 +32,17 @@ public class Salle implements Description{
     return description;
     }
     
-    
-    public void description2(){
-        System.out.println("Dans cette salle il ya :");
-        listItem.forEach(i -> System.out.format("- %s", i.getNom()));
+    public int MortPersonnage(PersonnagePrincipal p){
+        return p.pointsVie = 0;
     }
     
-    public static void ajoutSalle(String descr, String ennemi ){
-        salles.add(new Salle(descr,Zombie.StringToEnnemi(ennemi)));
+    //public void description2(){
+    //    System.out.println("Dans cette salle il ya :");
+    //    listItem.forEach(i -> System.out.format("- %s", i.getNom()));
+    //}
+    
+    public static void ajoutSalle(String descr, String ennemi, String item ){
+        salles.add(new Salle(descr,Zombie.StringToEnnemi(ennemi), Arme.StringToArme(item)));
     }
     
     

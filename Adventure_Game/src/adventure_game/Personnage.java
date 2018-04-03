@@ -23,12 +23,6 @@ public abstract class Personnage {
     }
     
     
-    Personnage John = new PersonnagePrincipal(100,10,5);
-    Personnage Zombie1 = new Ennemi(50, 10, 1);
-    Personnage Zombie2 = new Ennemi(50, 20, 2);
-    Personnage Zombie3 = new Ennemi(50, 30, 3);
-    Personnage Zombie4 = new Ennemi(50, 40, 4);
-    
     public int getPointsVie(){
         return this.pointsVie;
     }

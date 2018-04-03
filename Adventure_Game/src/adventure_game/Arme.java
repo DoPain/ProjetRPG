@@ -28,7 +28,7 @@ public enum Arme {
         this.degats = degats;
     }
     
-    
+    //recupere la case du csv correspondante et creer l'item correspondant
     public static Item StringToArme(String s){
         return ArmeToItem(Arme.valueOf(s));
     }

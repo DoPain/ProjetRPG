@@ -1,2 +1,2 @@
-ENNEMI1;DESCRIPTION;ITEM
-ZOMBIE1;Bienvenu dans la première salle. Comme vous le savez le but du jeu et d'arriver en haut de l'immeuble dans lequel vous vous situez pour pouvoir vous echapper.;COUTEAU 
+﻿DESCRIPTION;ENNEMI;ITEM
+Bienvenue dans la première salle. Comme vous le savez le but du jeu et d'arriver en haut de l'immeuble dans lequel vous vous situez pour pouvoir vous echapper.Dans cette salle il y a :;ZOMBIE1;COUTEAU
