@@ -58,7 +58,7 @@ public class Jeux {
     public static void initJeux(String csvSalle){
         FormatCsv salleCSV = new FormatCsv(csvSalle,';');
         salleCSV.lire();   
-        salleCSV.donnees.forEach(s -> Salle.ajoutSalle(s.get(0),s.get(1),s.get(2)));
+        salleCSV.donnees.forEach(s -> Zone.AjoutSalle(s.get(0),s.get(1),s.get(2)));
         
         
     }

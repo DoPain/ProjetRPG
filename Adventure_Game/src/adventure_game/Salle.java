@@ -32,8 +32,22 @@ public class Salle implements Description{
     return description;
     }
     
-    public int MortPersonnage(PersonnagePrincipal p){
-        return p.pointsVie = 0;
+    public boolean MortPersonnage(PersonnagePrincipal p){
+        int pointsVie = p.getPointsVie();
+        if (pointsVie == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+      public boolean MortEnnemi(Ennemi z){
+          int pointsVie = z.getPointsVie();
+        if ( pointsVie == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     //public void description2(){
@@ -41,7 +55,7 @@ public class Salle implements Description{
     //    listItem.forEach(i -> System.out.format("- %s", i.getNom()));
     //}
     
-    public static void ajoutSalle(String descr, String ennemi, String item ){
+    public static void AjoutSalle(String descr, String ennemi, String item ){
         salles.add(new Salle(descr,Zombie.StringToEnnemi(ennemi), Arme.StringToArme(item)));
     }
     
