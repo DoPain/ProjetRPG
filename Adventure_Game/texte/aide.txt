@@ -14,6 +14,5 @@ Plusieurs actions seront à votre disposition :
 				 - voisins : permet d'afficher la liste de salle voisines, il vous suffit ensuite d'écrire "bouger" + le numéro de la salle voisine.
 				 - inventaire : permet de voir le contenu de votre inventaire.
 				 - quitter : permet de quitter le jeux.
-				 - Ouvrir porte
 
 

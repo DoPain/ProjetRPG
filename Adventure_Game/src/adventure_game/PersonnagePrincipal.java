@@ -36,7 +36,7 @@ public class PersonnagePrincipal extends Personnage {
         System.out.println("Points de vie du personnage avant l'attaque " + this.pointsVie + "\n");
         Item i = new Item("poings", null, null, this.dommages);
         if (inventairePersonnage.getListeItems().size() > 0) {
-            System.out.println("Quelle item choisissez-vous pour attaquer? ");
+            System.out.println("Quel item choisissez-vous pour attaquer? ");
             String arme = sc.next();
             switch (arme) {
                 case "COUTEAU":

@@ -71,6 +71,9 @@ public class Jeux {
                     case "aide":
                         lireFichier("texte/aide.txt");
                         break;
+                    default : 
+                        System.out.println("Veuillez entrer une commande valide" + "\n");
+                        break;
                 }
                 System.out.println("Vous vous situez dans la salle n° : " + p.getSalle().getId() + "\n");
             }
