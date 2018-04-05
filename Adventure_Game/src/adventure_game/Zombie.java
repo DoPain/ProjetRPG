@@ -5,7 +5,6 @@
  */
 package adventure_game;
 
-import java.util.Arrays;
 
 /**
  *
@@ -32,7 +31,7 @@ public enum Zombie {
     }
     
     private static Ennemi ZombieToEnnemi(Zombie z){
-        return new Ennemi(z.PointsVie, z.dommages, z.vitesseAttaque);
+        return new Ennemi(z.name(),z.PointsVie, z.dommages, z.vitesseAttaque,null);
     }
            
     

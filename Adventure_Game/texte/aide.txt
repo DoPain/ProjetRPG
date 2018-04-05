@@ -1,0 +1,19 @@
+Bonjour et bienvenue dans l'aide.
+Le but du jeu est de s'échapper de l'immeuble dans lequel vous vous situez.
+Pour ce faire, vous devrez circuler de salle en salle pour atteindre l'ètage supèrieur et enfin atteindre le toit.
+Chaque salle seront différentes. Dans celle-ci vous pourrez retrouver plusieurs éléments : 
+				 - Des items ( couteau, pistolet, hache, etc..)
+				 - Des ennemis ( Zombies, Boss zombies)
+Plusieurs actions seront à votre disposition : 
+				 - examiner
+				 - attaquer :  celle ci vous demande avec quelle item présent dans votre inventaire vous voulez attaquer votre ennemi. Veuillez à tout d'abord examiner la salle avant d'attaquer.
+				 - ramasser + nomObjet 			 
+				 - jeter + nomObjet : veuillez à d'abord vérifier votre inventaire avant de jeter.
+				 - bouger + idSalle
+				 - ennemi : permet d'afficher l'ennemi présent dans la salle.
+				 - voisins : permet d'afficher la liste de salle voisines, il vous suffit ensuite d'écrire "bouger" + le numéro de la salle voisine.
+				 - inventaire : permet de voir le contenu de votre inventaire.
+				 - quitter : permet de quitter le jeux.
+				 - Ouvrir porte
+
+

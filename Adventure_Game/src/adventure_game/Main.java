@@ -12,10 +12,11 @@ package adventure_game;
 public class Main {
     
     private static final String csvSalle = "texte/salle.csv";
+    private static Jeux j = new Jeux();
     
     
     public static void main(String[] args) {
-        Jeux.run(csvSalle);
+        j.run(csvSalle);
     }
     
 }

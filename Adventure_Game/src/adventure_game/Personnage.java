@@ -11,15 +11,19 @@ package adventure_game;
  * @author dmorax
  */
 public abstract class Personnage {
+
+
     
     protected int pointsVie;
     protected int dommages;
     protected int vitesseAttaque;
+    protected Salle salle;
 
-    public Personnage(int pointsVie, int dommagesBase, int vitesseAttaque) {
+    public Personnage(int pointsVie, int dommagesBase, int vitesseAttaque, Salle s) {
         this.pointsVie = pointsVie;
         this.dommages = dommagesBase;
         this.vitesseAttaque = vitesseAttaque;
+        this.salle = s;
     }
     
     
@@ -35,4 +39,9 @@ public abstract class Personnage {
         return this.vitesseAttaque;
     }
     
+        public Salle getSalle() {
+        return salle;
+    }
+        
+   
 }

@@ -13,7 +13,7 @@ public enum Arme {
     
     PISTOLET(null,10,20),
     M4(null,30,25),
-    COUTEAU(10,null,15),
+    COUTEAU(10,null,40),
     HACHE(15,null,17),
     ARBALETTE(null,6,20);
     
@@ -35,7 +35,7 @@ public enum Arme {
     
     //Créer une nouvelle arme(item)
     private static Item ArmeToItem(Arme a){
-        return new Item(a.dureeVie, a.munitions, a.degats);
+        return new Item(a.name(), a.dureeVie, a.munitions, a.degats);
     }
     
 }

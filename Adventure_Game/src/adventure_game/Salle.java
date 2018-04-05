@@ -1,6 +1,6 @@
 package adventure_game;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /*
@@ -8,56 +8,99 @@ import java.util.ArrayList;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author dmorax
  */
-public class Salle implements Description{
-    
-    //ArrayList<Item> listItem;
-    private static ArrayList<Salle> salles;
+public class Salle{
+
+
+    private HashMap<Integer, Salle> sallesVoisines;
+    private int id;
     private String description;
     private Ennemi ennemi;
     private Item item;
-    
-    public Salle(String description, Ennemi ennemi, Item item){
+    private HashMap<String,Item> ItemsSalle;
+
+    public Salle(int id, String description, Ennemi ennemi, Item item) {
+        this.id = id;
         this.description = description;
         this.ennemi = ennemi;
         this.item = item;
+        sallesVoisines = new HashMap<>();
     }
-    
-     @Override
-    public String seDecrire(){      
-    return description;
-    }
-    
-    public boolean MortPersonnage(PersonnagePrincipal p){
+
+    public boolean MortPersonnage(PersonnagePrincipal p) {
         int pointsVie = p.getPointsVie();
-        if (pointsVie == 0){
+        if (pointsVie == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
-      public boolean MortEnnemi(Ennemi z){
-          int pointsVie = z.getPointsVie();
-        if ( pointsVie == 0){
+
+    public boolean MortEnnemi(Ennemi z) {
+        int pointsVie = z.getPointsVie();
+        if (pointsVie == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
+    public void AjoutVoisins(int i) {
+        sallesVoisines.put(i, Zone.IntToSalle(i));
+    }
+
+    public void displayVoisins() {
+        sallesVoisines.forEach((k, v) -> System.out.format("Salle voisine = %d\n", k));
+    }
+
+    public void displayItem() {
+        if (item != null){
+            System.out.println("Dans cette salle il y a : " + item.getNom());
+        }else {
+            System.out.println("Il n'y a rien dans la salle");
+        }
+        
+        
+    }
     
-    //public void description2(){
-    //    System.out.println("Dans cette salle il ya :");
-    //    listItem.forEach(i -> System.out.format("- %s", i.getNom()));
-    //}
+    public void DisplayEnnemi(){
+        if (this.ennemi != null){
+            System.out.println("Dans cette salle il y a : " + this.ennemi.getNom());
+        }else {
+            System.out.println("Il n'y a pas d'ennemis dans cette salle");
+        }
+        
+    }
     
-    public static void AjoutSalle(String descr, String ennemi, String item ){
-        salles.add(new Salle(descr,Zombie.StringToEnnemi(ennemi), Arme.StringToArme(item)));
+    public void Examiner(){
+        DisplayEnnemi();
+        displayItem();
+    }
+    
+    public void SupprimerItemSalle(){
+        item = null; 
+    }
+    
+    public void AjouterItemSalle(){
+  
+    }
+    
+    public void SupprimerEnnemiSalle(){
+        this.ennemi = null;
+    }
+
+    public int getId() {
+        return id;
     }
     
     
+    public Ennemi getEnnemi() {
+        return ennemi;
+    }
+    
+    
+
 }

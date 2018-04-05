@@ -11,20 +11,19 @@ import java.util.ArrayList;
  *
  * @author dmorax
  */
-public class Item implements Description {
+public class Item  {
 
     private Integer dureeVie;
     private Integer munitions;
     private String nom;
     private int degats;
 
-    public Item(Integer dureeVie, Integer munitions, int degats) {
+    public Item(String nom, Integer dureeVie, Integer munitions, int degats) {
+        this.nom = nom; 
         this.dureeVie = dureeVie;
         this.munitions = munitions;
         this.degats = degats;
     }
-
-    private ArrayList<Item> items;
 
     public String getNom() {
         return this.nom;
@@ -56,20 +55,11 @@ public class Item implements Description {
   
     public void DuréeVieBaisse(Item e) {       
         if (e.dureeVie != null && e.munitions == null) {
-            while (e.dureeVie > 0) {
                 e.dureeVie--;
-            }
             if (e.dureeVie == 0) {
-                System.out.println("Votre arme n'est plus utilisable");
+                System.out.println("Votre arme n'est plus utilisable" + "\n");
             }
         }
 
     }
-
-
-    @Override
-    public String seDecrire() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

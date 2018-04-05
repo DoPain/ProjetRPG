@@ -11,16 +11,20 @@ package adventure_game;
  *
  * @author dmorax
  */
-public class Ennemi extends Personnage implements Description {
+public class Ennemi extends Personnage {
 
-    public Ennemi(int pointsVie, int dommages, int vitesseAttaque) {
-        super(pointsVie,dommages,vitesseAttaque);
+
+
+    private String nom;
+    
+    public Ennemi(String nom, int pointsVie, int dommages, int vitesseAttaque, Salle s) {
+        super(pointsVie,dommages,vitesseAttaque, s);
+        this.nom = nom;
+        
     }
     
-    
-     @Override
-    public String seDecrire(){
-    return "";
-    }
+    public String getNom() {
+        return nom;
+    }    
     
 }
