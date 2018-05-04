@@ -11,30 +11,54 @@ package adventure_game;
  */
 public abstract class Personnage {
 
+    /**
+     * Correspond aux points de vie du personnage
+     */
     protected int pointsVie;
+
+    /**
+     * Correspond aux dégats à main nue du personnage
+     */
     protected int dommages;
-    protected int vitesseAttaque;
+
+    /**
+     * Correspond à la salle courante où se situe le personnage
+     */
     protected Salle salle;
 
+    /**
+     * Constructeur de la classe
+     * @param pointsVie
+     * @param dommagesBase
+     * @param vitesseAttaque
+     * @param s
+     */
     public Personnage(int pointsVie, int dommagesBase, int vitesseAttaque, Salle s) {
         this.pointsVie = pointsVie;
         this.dommages = dommagesBase;
-        this.vitesseAttaque = vitesseAttaque;
         this.salle = s;
     }
 
+    /**
+     * Accesseur sur les points de vie du personnage
+     * @return
+     */
     public int obtenirPointsVie() {
         return this.pointsVie;
     }
 
+    /**
+     * Accesseur sur les degats à main nue du personnage
+     * @return
+     */
     public int obtenirDommages() {
         return this.dommages;
     }
 
-    public int obtenirVitesseAttaque() {
-        return this.vitesseAttaque;
-    }
-
+    /** 
+     * Accesseur sur la salle courante où se situe le personnage
+     * @return
+     */
     public Salle obtenirSalle() {
         return salle;
     }

@@ -13,18 +13,32 @@ import java.util.HashMap;
  */
 public class Inventaire {
     
+    /**
+     *
+     */
     private HashMap<String,Objet> listeObjets;
     
+    /**
+     *
+     */
     public Inventaire(){
         listeObjets = new HashMap<>(); 
     }
     
+    /**
+     * Permet d'ajouter un objet dans l'inventaire du joueur
+     * @param i
+     */
     public void ajouter(Objet i){
         listeObjets.put(i.obtenirNom(), i);
         System.out.println("Vous avez ramasser " + i.obtenirNom() + "\n");
     }
     
-    public void supprimer(Objet i){
+    /**
+     * Permet de supprimer un objet de l'inventaire du personnage
+     * @param i
+     */
+    public void supprimerObjetInventaire(Objet i){
         if (listeObjets.size() > 0){
             listeObjets.remove(i.obtenirNom());
             System.out.println("Vous avez jeté " + i.obtenirNom() + "\n");
@@ -34,10 +48,17 @@ public class Inventaire {
         
     }
 
+    /**
+     * Accesseur sur la liste d'objet
+     * @return
+     */
     public HashMap<String, Objet> obtenirListeObjets() {
         return listeObjets;
     }
     
+    /**
+     * Permet d'afficher l'inventaire actuel du personnage
+     */
     public void afficher(){
         if (listeObjets.size() > 0){
             listeObjets.forEach((k,v) -> {

@@ -18,7 +18,10 @@ import java.util.Scanner;
  */
 public class Jeux {
 
-    //quitprivate Item i = new Item("Dorian", null, 30, 15);
+    /**
+     *
+     * @param csvSalle
+     */
     public void lancer(String csvSalle) {
         LireFichier("texte/debut.txt");
         Zone z = new Zone();
@@ -89,6 +92,11 @@ public class Jeux {
         }
     }
 
+    /**
+     * Initialise le jeux en lisant le fichier csv
+     * @param csvSalle
+     * @param z
+     */
     public void InitJeux(String csvSalle, Zone z) {
         FormatCsv salleCSV = new FormatCsv(csvSalle, ';');
         salleCSV.lire();
@@ -96,10 +104,17 @@ public class Jeux {
 
     }
 
+    /**
+     * Permet de quitter le jeux
+     */
     public static void Quitter() {
         System.exit(0);
     }
 
+    /**
+     * Permet de lire un fichier texte
+     * @param s
+     */
     public static void LireFichier(String s) {
         try {
             File f = new File(s);

@@ -13,10 +13,20 @@ import adventure_game.Jeux;
  */
 public class Main {
     
+    /**
+     *
+     */
     private static final String csvSalle = "texte/salle.csv";
+
+    /**
+     *
+     */
     private static Jeux j = new Jeux();
     
-    
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         j.lancer(csvSalle);
     }

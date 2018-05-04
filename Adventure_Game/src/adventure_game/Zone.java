@@ -13,16 +13,40 @@ import java.util.HashMap;
  */
 public class Zone {
     
+    /**
+     *
+     */
     private final int nbSalles = 4;
+
+    /**
+     *
+     */
     private static Salle salleCommencement = new Salle(0, null,null);
+
+    /**
+     *
+     */
     private static HashMap<Integer, Salle> salles;
     
+    /**
+     *
+     */
     public Zone() {        
         salles = new HashMap<>();
         
         salles.put(0, salleCommencement);        
     }
     
+    /**
+     *
+     * @param id
+     * @param ennemi
+     * @param item
+     * @param nord
+     * @param ouest
+     * @param sud
+     * @param est
+     */
     public void ajoutSalle(String id, String ennemi, String item, String nord, String ouest, String sud, String est) {
         Salle s = new Salle(Integer.parseInt(id), Zombie.chaineVersEnnemi(ennemi), Arme.chaineVersArme(item));        
         s.ajoutVoisins(Integer.parseInt(nord), Direction.NORD);
@@ -32,10 +56,19 @@ public class Zone {
         salles.put(Integer.parseInt(id), s);
     }
     
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static Salle entierVersSalle(int s) {
             return salles.get(s);
     }
     
+    /**
+     *
+     * @return
+     */
     public static Salle obtenirSalleCommencement() {
         return salleCommencement;
     }

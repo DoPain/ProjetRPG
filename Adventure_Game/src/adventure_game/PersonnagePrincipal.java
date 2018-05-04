@@ -13,22 +13,41 @@ import java.util.Scanner;
  */
 public class PersonnagePrincipal extends Personnage {
 
+    /**
+     * Correspond à l'inventaire du personnage
+     */
     private Inventaire inventairePersonnage;
 
+    /**
+     * Constructeur de la classe
+     * @param pointsVies
+     * @param dommages
+     * @param vitesseAttaque
+     * @param s
+     */
     public PersonnagePrincipal(int pointsVies, int dommages, int vitesseAttaque, Salle s) {
         super(pointsVies, dommages, vitesseAttaque, s);
         inventairePersonnage = new Inventaire();
     }
 
-    public void attaquerAvecArme(Objet i, Ennemi e) {
-        e.pointsVie -= i.obtenirDegats();
+    /**
+     * Permet avec une arme d'attaquer un ennemi
+     * @param i
+     * @param e
+     */
+    public void attaquerAvecArme(Objet i, Ennemi e) {    
         if (i.obtenirMunitions() != null && i.obtenirDureeVie() == null) {
             i.munitionsBaisse(i);
+            e.pointsVie -= i.obtenirDegats();
         } else if (i.obtenirDureeVie() != null && i.obtenirMunitions() == null) {
+            e.pointsVie -= i.obtenirDegats();
             i.duréeVieBaisse(i);
         }
     }
 
+    /**
+     *
+     */
     public void attaquer() {           
         afficherInventaire();
         Objet i = new Objet("poings", null, null, this.dommages); 
@@ -78,11 +97,19 @@ public class PersonnagePrincipal extends Personnage {
 
     }
 
+    /**
+     * Permet au personnage de se déplacer dans différentes salles voisines à sa salle actuelle
+     * @param i
+     */
     public void seDeplacer(int i) {
         System.out.println("Vous vous dirigez vers la salle n°" + Zone.entierVersSalle(i).obtenirId() + "\n");
         this.salle = Zone.entierVersSalle(i);
     }
 
+    /**
+     * Permet au personnage de ramasser un objet présent dans la salle où il se situe
+     * @param i
+     */
     public void ramasser(Objet i) {
         if (this.obtenirSalle().contientItem() && this.obtenirSalle().obtenirItem().equals(i)){                
                 inventairePersonnage.ajouter(i);
@@ -93,11 +120,18 @@ public class PersonnagePrincipal extends Personnage {
     
     }
 
+    /**
+     * permet au personnage de jeter dans la salle un objet de son inventaire
+     * @param i
+     */
     public void jeter(Objet i) {
-        inventairePersonnage.supprimer(i);
+        inventairePersonnage.supprimerObjetInventaire(i);
         salle.ajouterItemSalle();
     }
 
+    /**
+     * permet d'afficher le contenu de l'inventaire du personnage
+     */
     public void afficherInventaire() {
         System.out.println("Dans votre inventaire se trouve : ");
         inventairePersonnage.afficher();
