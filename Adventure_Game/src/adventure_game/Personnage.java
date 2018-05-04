@@ -5,15 +5,12 @@ package adventure_game;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author dmorax
  */
 public abstract class Personnage {
 
-
-    
     protected int pointsVie;
     protected int dommages;
     protected int vitesseAttaque;
@@ -25,23 +22,21 @@ public abstract class Personnage {
         this.vitesseAttaque = vitesseAttaque;
         this.salle = s;
     }
-    
-    
-    public int getPointsVie(){
+
+    public int obtenirPointsVie() {
         return this.pointsVie;
     }
-    
-    public int getDommages(){
+
+    public int obtenirDommages() {
         return this.dommages;
     }
-    
-    public int getVitesseAttaque(){
+
+    public int obtenirVitesseAttaque() {
         return this.vitesseAttaque;
     }
-    
-        public Salle getSalle() {
+
+    public Salle obtenirSalle() {
         return salle;
     }
-        
-   
+
 }

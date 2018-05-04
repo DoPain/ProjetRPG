@@ -11,11 +11,11 @@ package adventure_game;
  */
 public enum Arme {
     
-    PISTOLET(null,10,20),
-    M4(null,30,25),
-    COUTEAU(10,null,40),
-    HACHE(15,null,17),
-    ARBALETTE(null,6,20);
+    PISTOLET(null,10,40),
+    M4(null,30,50),
+    COUTEAU(10,null,20),
+    HACHE(15,null,25),
+    ARBALETTE(null,6,25);
     
 
     private Integer dureeVie;
@@ -29,13 +29,13 @@ public enum Arme {
     }
     
     //recupere la case du csv correspondante et creer l'item correspondant
-    public static Item StringToArme(String s){
-        return ArmeToItem(Arme.valueOf(s));
+    public static Objet chaineVersArme(String s){
+        return armeVersItem(Arme.valueOf(s));
     }
     
     //Créer une nouvelle arme(item)
-    private static Item ArmeToItem(Arme a){
-        return new Item(a.name(), a.dureeVie, a.munitions, a.degats);
+    private static Objet armeVersItem(Arme a){
+        return new Objet(a.name(), a.dureeVie, a.munitions, a.degats);
     }
     
 }

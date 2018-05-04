@@ -16,22 +16,22 @@ public enum Zombie {
     ZOMBIE2(60,30,4),
     ZOMBIE1(40,10,2);
     
-    private int PointsVie;
+    private int pointsVie;
     private int dommages;
     private int vitesseAttaque;
     
-    Zombie( int PointsVie, int dommages, int vitesseAttaque){
-        this.PointsVie = PointsVie;
+    Zombie( int pointsVie, int dommages, int vitesseAttaque){
+        this.pointsVie = pointsVie;
         this.dommages = dommages;
         this.vitesseAttaque = vitesseAttaque;
     }
     
-    public static Ennemi StringToEnnemi(String s){
-        return ZombieToEnnemi(Zombie.valueOf(s));
+    public static Ennemi chaineVersEnnemi(String s){
+        return zombieVersEnnemi(Zombie.valueOf(s));
     }
     
-    private static Ennemi ZombieToEnnemi(Zombie z){
-        return new Ennemi(z.name(),z.PointsVie, z.dommages, z.vitesseAttaque,null);
+    private static Ennemi zombieVersEnnemi(Zombie z){
+        return new Ennemi(z.name(),z.pointsVie, z.dommages, z.vitesseAttaque,null);
     }
            
     

@@ -23,7 +23,7 @@ public class Ennemi extends Personnage {
         
     }
     
-    public String getNom() {
+    public String obtenirNom() {
         return nom;
     }    
     

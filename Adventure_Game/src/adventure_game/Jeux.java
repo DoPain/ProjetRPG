@@ -18,80 +18,89 @@ import java.util.Scanner;
  */
 public class Jeux {
 
-    private Item i = new Item("Dorian", null, 30, 15);
-
-    public void run(String csvSalle) {
-        lireFichier("texte/debut.txt");
+    //quitprivate Item i = new Item("Dorian", null, 30, 15);
+    public void lancer(String csvSalle) {
+        LireFichier("texte/debut.txt");
         Zone z = new Zone();
-        initJeux(csvSalle, z);
-        Zone.getSalleCommencement().AjoutVoisins(1);
-        PersonnagePrincipal p = new PersonnagePrincipal(100, 30, 5, Zone.getSalleCommencement());
-        Ennemi e = new Ennemi("Maxime", 60, 10, 3, Zone.IntToSalle(1));
+        InitJeux(csvSalle, z);
+        Zone.obtenirSalleCommencement().ajoutVoisins(1, Direction.EST);
+        PersonnagePrincipal p = new PersonnagePrincipal(100, 10, 5, Zone.obtenirSalleCommencement());
         Scanner in = new Scanner(System.in);
         while (in.hasNextLine()) {
             Scanner s = new Scanner(in.nextLine());
 
             while (s.hasNext()) {
-                String param = " ";
-                String start = s.nextLine();
-                try {
-                    param = start.substring(start.indexOf(" ") + 1);
-                } catch (NullPointerException ee) {
-                } catch (StringIndexOutOfBoundsException ee) {
-                }
-                if (start.startsWith("bouger")) {
-                    p.SeDeplacer(Integer.parseInt(param));
-                } else if (start.startsWith("ramasser")) {
-                    p.Ramasser(Arme.StringToArme(param));
-                } else if (start.startsWith("jeter")) {
-                    p.Jeter(Arme.StringToArme(param));
-                }
-                switch (start) {
+               
+                String start = s.nextLine().toLowerCase();
+                String[] arguments = start.split(" ");            
+        
+                switch (arguments[0]) {
+                    case "bouger" :
+                        if (arguments.length >= 2){
+                        p.seDeplacer(Integer.parseInt(arguments[1]));
+                        }else {
+                            System.out.println("Vous devez préciser un nom de salle");
+                        }
+                        break;
+                    case "ramasser" :
+                        if (arguments.length >= 2){
+                        p.ramasser(Arme.chaineVersArme(arguments[1].toUpperCase()));
+                        }else{
+                            System.out.println("Vous devez préciser un objet présent dans la salle");
+                        }
+                        break;
+                    case "jeter" : 
+                    if (arguments.length >= 2){
+                        p.jeter(Arme.chaineVersArme(arguments[1]));
+                        }else{
+                            System.out.println("Vous devez préciser un objet présent dans votre inventaire");
+                        }
+                        break;
                     case "attaquer":
-                        p.Attaquer();
+                        p.attaquer();
                         break;
                     case "quitter":
-                        quitter();
+                        Quitter();
                         break;
                     case "items":
-                        p.getSalle().displayItem();
+                        p.obtenirSalle().afficherItem();
                         break;
                     case "voisins":
-                        p.getSalle().displayVoisins();
+                        p.obtenirSalle().afficherVoisins();
                         break;
                     case "inventaire":
-                        p.DisplayInventaire();
+                        p.afficherInventaire();
                         break;
                     case "examiner":
-                        p.getSalle().Examiner();
+                        p.obtenirSalle().examiner();
                         break;
                     case "ennemi":
-                        p.getSalle().DisplayEnnemi();
+                        p.obtenirSalle().afficherEnnemi();
                         break;
                     case "aide":
-                        lireFichier("texte/aide.txt");
+                        LireFichier("texte/aide.txt");
                         break;
-                    default : 
+                    default:
                         System.out.println("Veuillez entrer une commande valide" + "\n");
                         break;
                 }
-                System.out.println("Vous vous situez dans la salle n° : " + p.getSalle().getId() + "\n");
+                System.out.println("Vous vous situez dans la salle n° : " + p.obtenirSalle().obtenirId() + "\n");
             }
         }
     }
 
-    public void initJeux(String csvSalle, Zone z) {
+    public void InitJeux(String csvSalle, Zone z) {
         FormatCsv salleCSV = new FormatCsv(csvSalle, ';');
         salleCSV.lire();
-        salleCSV.donnees.forEach(s -> z.AjoutSalle(s.get(0), s.get(1), s.get(2), s.get(3), s.get(4)));
+        salleCSV.donnees.forEach(s -> z.ajoutSalle(s.get(0), s.get(1), s.get(2), s.get(3), s.get(4),s.get(5), s.get(6)));
 
     }
 
-    public static void quitter() {
+    public static void Quitter() {
         System.exit(0);
     }
 
-    public static void lireFichier(String s) {
+    public static void LireFichier(String s) {
         try {
             File f = new File(s);
             FileReader fr = new FileReader(f);

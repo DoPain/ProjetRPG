@@ -9,14 +9,11 @@ package adventure_game;
  *
  * @author dmorax
  */
-public class Main {
+public enum Direction {
     
-    private static final String csvSalle = "texte/salle.csv";
-    private static Jeux j = new Jeux();
-    
-    
-    public static void main(String[] args) {
-        j.run(csvSalle);
-    }
+    NORD(),
+    SUD(),
+    EST(),
+    OUEST();
     
 }

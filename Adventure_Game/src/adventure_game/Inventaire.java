@@ -13,39 +13,43 @@ import java.util.HashMap;
  */
 public class Inventaire {
     
-    private HashMap<String,Item> listeItems;
+    private HashMap<String,Objet> listeObjets;
     
-    Inventaire(){
-        listeItems = new HashMap<>(); 
+    public Inventaire(){
+        listeObjets = new HashMap<>(); 
     }
     
-    public void Ajouter(Item i){
-        listeItems.put(i.getNom(), i);
-        System.out.println("Vous avez ramasser " + i.getNom() + "\n");
+    public void ajouter(Objet i){
+        listeObjets.put(i.obtenirNom(), i);
+        System.out.println("Vous avez ramasser " + i.obtenirNom() + "\n");
     }
     
-    public void Supprimer(Item i){
-        if (listeItems.size() > 0){
-            listeItems.remove(i.getNom());
-            System.out.println("Vous avez jeté " + i.getNom() + "\n");
+    public void supprimer(Objet i){
+        if (listeObjets.size() > 0){
+            listeObjets.remove(i.obtenirNom());
+            System.out.println("Vous avez jeté " + i.obtenirNom() + "\n");
         }else {
             System.out.println("Vous ne pouvez pas jeter du vide" + "\n");
         }
         
     }
 
-    public HashMap<String, Item> getListeItems() {
-        return listeItems;
+    public HashMap<String, Objet> obtenirListeObjets() {
+        return listeObjets;
     }
     
-    public void displayInventaire(){
-        if (listeItems.size() > 0){
-            listeItems.forEach((k,v) -> System.out.printf(k + "\n"));
+    public void afficher(){
+        if (listeObjets.size() > 0){
+            listeObjets.forEach((k,v) -> {
+                if (v.obtenirDureeVie() != null && v.obtenirMunitions() == null){
+                    System.out.printf(k + " il lui reste " + v.obtenirDureeVie() + " de durée de vie." + "\n");
+                }else  if (v.obtenirMunitions() != null && v.obtenirDureeVie() == null){
+                    System.out.printf(k + " il lui reste " + v.obtenirMunitions() + " de munitions." + "\n");
+                }
+            });
         }else {
             System.out.println("Vous n'avez rien dans votre inventaire" + "\n");
-        }
-        
-        
+        }           
     }
     
 }
