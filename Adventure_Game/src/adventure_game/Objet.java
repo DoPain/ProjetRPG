@@ -87,9 +87,7 @@ public class Objet {
      * @param e
      */
     public void munitionsBaisse(Objet e) {
-        if (e.munitions != null && e.dureeVie == null) {
-            e.munitions--;
-        }
+            e.munitions--;       
         if (e.munitions == 0) {
             System.out.println("Munitions épuisées");
         }
@@ -99,13 +97,12 @@ public class Objet {
      * Permet de baisser la durée de vie d'une arme blanche quand celle-ci sera utilisé
      * @param e
      */
-    public void duréeVieBaisse(Objet e) {
-        if (e.dureeVie != null && e.munitions == null) {
+    public void duréeVieBaisse(Objet e) {      
             e.dureeVie--;
             if (e.dureeVie == 0) {
                 System.out.println("Votre arme n'est plus utilisable" + "\n");
             }
-        }
+        
 
     }
 

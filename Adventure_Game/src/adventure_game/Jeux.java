@@ -18,6 +18,8 @@ import java.util.Scanner;
  */
 public class Jeux {
 
+    private ControleurJeux controle;
+    
     /**
      *
      * @param csvSalle
@@ -27,7 +29,7 @@ public class Jeux {
         Zone z = new Zone();
         InitJeux(csvSalle, z);
         Zone.obtenirSalleCommencement().ajoutVoisins(1, Direction.EST);
-        PersonnagePrincipal p = new PersonnagePrincipal(100, 10, 5, Zone.obtenirSalleCommencement());
+        PersonnagePrincipal p = new PersonnagePrincipal(100, 10, Zone.obtenirSalleCommencement());
         Scanner in = new Scanner(System.in);
         while (in.hasNextLine()) {
             Scanner s = new Scanner(in.nextLine());
@@ -54,7 +56,7 @@ public class Jeux {
                         break;
                     case "jeter" : 
                     if (arguments.length >= 2){
-                        p.jeter(Arme.chaineVersArme(arguments[1]));
+                        p.jeter(Arme.chaineVersArme(arguments[1].toUpperCase()));
                         }else{
                             System.out.println("Vous devez préciser un objet présent dans votre inventaire");
                         }
@@ -137,6 +139,11 @@ public class Jeux {
         } catch (FileNotFoundException exception) {
             System.out.println("Le fichier n'a pas été trouvé");
         }
+    }
+    
+    
+    public void setControlleur(ControleurJeux c){
+        this.controle = c;
     }
 
 }

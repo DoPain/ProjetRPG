@@ -15,17 +15,17 @@ public enum Zombie {
     /**
      *
      */
-    BOSS(100,60,6),
+    BOSS(100,60),
 
     /**
      *
      */
-    ZOMBIE2(60,30,4),
+    ZOMBIE2(60,30),
 
     /**
      *
      */
-    ZOMBIE1(40,10,2);
+    ZOMBIE1(40,10);
     
     /**
      *
@@ -36,11 +36,6 @@ public enum Zombie {
      *
      */
     private int dommages;
-
-    /**
-     *
-     */
-    private int vitesseAttaque;
     
     /**
      *
@@ -48,10 +43,9 @@ public enum Zombie {
      * @param dommages
      * @param vitesseAttaque
      */
-    Zombie( int pointsVie, int dommages, int vitesseAttaque){
+    Zombie( int pointsVie, int dommages){
         this.pointsVie = pointsVie;
         this.dommages = dommages;
-        this.vitesseAttaque = vitesseAttaque;
     }
     
     /**
@@ -69,7 +63,7 @@ public enum Zombie {
      * @return
      */
     private static Ennemi zombieVersEnnemi(Zombie z){
-        return new Ennemi(z.name(),z.pointsVie, z.dommages, z.vitesseAttaque,null);
+        return new Ennemi(z.name(),z.pointsVie, z.dommages,null);
     }
            
     

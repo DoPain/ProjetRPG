@@ -33,7 +33,7 @@ public abstract class Personnage {
      * @param vitesseAttaque
      * @param s
      */
-    public Personnage(int pointsVie, int dommagesBase, int vitesseAttaque, Salle s) {
+    public Personnage(int pointsVie, int dommagesBase, Salle s) {
         this.pointsVie = pointsVie;
         this.dommages = dommagesBase;
         this.salle = s;

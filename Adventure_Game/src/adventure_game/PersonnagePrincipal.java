@@ -25,8 +25,8 @@ public class PersonnagePrincipal extends Personnage {
      * @param vitesseAttaque
      * @param s
      */
-    public PersonnagePrincipal(int pointsVies, int dommages, int vitesseAttaque, Salle s) {
-        super(pointsVies, dommages, vitesseAttaque, s);
+    public PersonnagePrincipal(int pointsVies, int dommages, Salle s) {
+        super(pointsVies, dommages, s);
         inventairePersonnage = new Inventaire();
     }
 
@@ -78,6 +78,11 @@ public class PersonnagePrincipal extends Personnage {
                 }        
         System.out.println("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");
         attaquerAvecArme(i, salle.obtenirEnnemi());
+        if (i.obtenirDureeVie() != null && i.obtenirMunitions() == null){
+            i.duréeVieBaisse(i);
+        }else if (i.obtenirMunitions() != null && i.obtenirDureeVie() == null){
+            i.munitionsBaisse(i);
+        }
         } else if (salle.obtenirEnnemi() == null) {
             System.out.println("Vous ne pouvez pas vous attaquer vous même voyons. Essayez de trouver un ennemi d'abord.");
         }
@@ -126,7 +131,7 @@ public class PersonnagePrincipal extends Personnage {
      */
     public void jeter(Objet i) {
         inventairePersonnage.supprimerObjetInventaire(i);
-        salle.ajouterItemSalle();
+        salle.ajouterItemSalle(i);
     }
 
     /**

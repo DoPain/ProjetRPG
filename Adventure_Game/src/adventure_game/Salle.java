@@ -147,8 +147,12 @@ public class Salle{
     /**
      *
      */
-    public void ajouterItemSalle(){
-        
+    public void ajouterItemSalle(Objet o){
+        if(this.item == null){
+            this.item = o;
+        }else {
+            System.out.println("Vous ne pouvez pas rajouter d'item à la salle.");
+        }
     }
     
     /**
