@@ -94,47 +94,50 @@ public class Salle{
     /**
      * Permet d'afficher les voisins de la salle courante
      */
-    public void afficherVoisins() {
-        sallesVoisines.forEach((k, v) -> System.out.format("La salle %d se situe direction:  %s\n", v.id, k.name()));
+    public String afficherVoisins() {
+        final StringBuilder message = new StringBuilder();
+        sallesVoisines.forEach((k, v) -> message.append(String.format("La salle %d se situe direction:  %s\n", v.id, k.name())));
+        
+        return message.toString();
     }
 
     /**
      * Permet d'afficher les objets présent dans la salle courante
      */
-    public void afficherItem() {
+    public String afficherItem() {
         if (item != null){
             if (item.obtenirDureeVie() != null && item.obtenirMunitions() == null){
-                System.out.println("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
-                        + item.obtenirDureeVie() + " de durée de vie" + "\n");
+                return ("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
+                        + item.obtenirDureeVie() + " de durée de vie" + "\n\n");
             }else if (item.obtenirMunitions() != null && item.obtenirDureeVie() == null){
-                System.out.println("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
-                        + item.obtenirMunitions() + " de munitions" + "\n");
+                return ("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
+                        + item.obtenirMunitions() + " de munitions" + "\n\n");
             }         
         }else {
-            System.out.println("Il n'y a pas d'objet dans cette salle");
+            return ("Il n'y a pas d'objet dans cette salle \n");
         }
         
-        
+        return "";
     }
     
     /**
      * Permet d'afficher les ennemis présents dans la salle courante
      */
-    public void afficherEnnemi(){
+    public String afficherEnnemi(){
+        String message = "";
         if (this.ennemi != null){
-            System.out.println("Dans cette salle il y a : " + this.ennemi.obtenirNom() + " il possède " + this.ennemi.pointsVie + " de points de vies");
+            message+=("Dans cette salle il y a : " + this.ennemi.obtenirNom() + " il possède " + this.ennemi.pointsVie + " de points de vies \n");
         }else {
-            System.out.println("Il n'y a pas d'ennemis dans cette salle");
+            message+=("Il n'y a pas d'ennemis dans cette salle \n");
         }
-        
+        return message;
     }
     
     /**
      * Permet au personnage d'examiner la salle pour savoir ce qu'il s'y trouve (objets/ennemis)
      */
-    public void examiner(){
-        afficherEnnemi();
-        afficherItem();
+    public String examiner(){
+        return afficherEnnemi() + afficherItem();
     }
     
     /**
@@ -147,11 +150,12 @@ public class Salle{
     /**
      *
      */
-    public void ajouterItemSalle(Objet o){
+    public String ajouterItemSalle(Objet o){
         if(this.item == null){
             this.item = o;
+            return "";
         }else {
-            System.out.println("Vous ne pouvez pas rajouter d'item à la salle.");
+            return ("Vous ne pouvez pas rajouter d'item à la salle.");
         }
     }
     
@@ -186,6 +190,10 @@ public class Salle{
         return item;
     }
     
+    public HashMap<Direction, Salle> obtenirVoisins(){
+        return sallesVoisines;
+    }
+    
     /**
      *
      * @return
@@ -194,6 +202,9 @@ public class Salle{
         return item != null;
     }
     
+    public String decrire(){
+        return ("Vous vous situez dans la salle n°" + obtenirId() + " \n" + "Voici les salles voisines à la votre : " + afficherVoisins());
+    }
     
 
 }

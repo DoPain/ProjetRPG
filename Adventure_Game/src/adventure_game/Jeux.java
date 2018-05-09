@@ -19,91 +19,88 @@ import java.util.Scanner;
 public class Jeux {
 
     private ControleurJeux controle;
+
+    private PersonnagePrincipal p ;
     
+    public Jeux (){
+    }
     /**
      *
      * @param csvSalle
      */
-    public void lancer(String csvSalle) {
-        LireFichier("texte/debut.txt");
-        Zone z = new Zone();
-        InitJeux(csvSalle, z);
-        Zone.obtenirSalleCommencement().ajoutVoisins(1, Direction.EST);
-        PersonnagePrincipal p = new PersonnagePrincipal(100, 10, Zone.obtenirSalleCommencement());
-        Scanner in = new Scanner(System.in);
-        while (in.hasNextLine()) {
-            Scanner s = new Scanner(in.nextLine());
+    public String traiterCommande(String s) {       
+        String message = "";
 
-            while (s.hasNext()) {
-               
-                String start = s.nextLine().toLowerCase();
-                String[] arguments = start.split(" ");            
-        
-                switch (arguments[0]) {
-                    case "bouger" :
-                        if (arguments.length >= 2){
-                        p.seDeplacer(Integer.parseInt(arguments[1]));
-                        }else {
-                            System.out.println("Vous devez préciser un nom de salle");
-                        }
-                        break;
-                    case "ramasser" :
-                        if (arguments.length >= 2){
-                        p.ramasser(Arme.chaineVersArme(arguments[1].toUpperCase()));
-                        }else{
-                            System.out.println("Vous devez préciser un objet présent dans la salle");
-                        }
-                        break;
-                    case "jeter" : 
-                    if (arguments.length >= 2){
-                        p.jeter(Arme.chaineVersArme(arguments[1].toUpperCase()));
-                        }else{
-                            System.out.println("Vous devez préciser un objet présent dans votre inventaire");
-                        }
-                        break;
-                    case "attaquer":
-                        p.attaquer();
-                        break;
-                    case "quitter":
-                        Quitter();
-                        break;
-                    case "items":
-                        p.obtenirSalle().afficherItem();
-                        break;
-                    case "voisins":
-                        p.obtenirSalle().afficherVoisins();
-                        break;
-                    case "inventaire":
-                        p.afficherInventaire();
-                        break;
-                    case "examiner":
-                        p.obtenirSalle().examiner();
-                        break;
-                    case "ennemi":
-                        p.obtenirSalle().afficherEnnemi();
-                        break;
-                    case "aide":
-                        LireFichier("texte/aide.txt");
-                        break;
-                    default:
-                        System.out.println("Veuillez entrer une commande valide" + "\n");
-                        break;
+        String start = s.toLowerCase();
+        String[] arguments = start.split(" ");
+
+        switch (arguments[0]) {
+            case "bouger":
+                if (arguments.length >= 2) {
+                    message += p.seDeplacer(Integer.parseInt(arguments[1]));
+                    message += ("Vous vous situez dans la salle n° : " + p.obtenirSalle().obtenirId() + "\n \n");
+                } else {
+                    message += ("Vous devez préciser un nom de salle \n");               
                 }
-                System.out.println("Vous vous situez dans la salle n° : " + p.obtenirSalle().obtenirId() + "\n");
-            }
+                break;
+            case "ramasser":
+                if (arguments.length >= 2) {
+                    message += p.ramasser(Arme.chaineVersArme(arguments[1].toUpperCase()));
+                    
+                } else {
+                    message += ("Vous devez préciser un objet présent dans la salle \n");
+                }
+                break;
+            case "jeter":
+                if (arguments.length >= 2) {
+                    p.jeter(Arme.chaineVersArme(arguments[1].toUpperCase()));
+                } else {
+                    message += ("Vous devez préciser un objet présent dans votre inventaire \n");
+                }
+                break;
+            case "attaquer":
+                message += p.attaquer(arguments[1].toUpperCase());
+                break;
+            case "quitter":
+                Quitter();
+                break;
+            case "items":
+                message += p.obtenirSalle().afficherItem();
+                break;
+            case "voisins":
+                message += p.obtenirSalle().afficherVoisins();
+                message += ("Vous vous situez dans la salle n° : " + p.obtenirSalle().obtenirId() + "\n \n");
+                break;
+            case "inventaire":
+                message += p.afficherInventaire();
+                break;
+            case "examiner":
+                message += p.obtenirSalle().examiner();
+                break;
+            case "ennemi":
+                message += p.obtenirSalle().afficherEnnemi();
+                break;
+            case "aide":
+               message += LireFichier("texte/aide.txt");
+                break;
+            default:
+                message += ("Veuillez entrer une commande valide" + "\n");
+                break;
         }
+
+        return message;
     }
 
     /**
      * Initialise le jeux en lisant le fichier csv
+     *
      * @param csvSalle
      * @param z
      */
-    public void InitJeux(String csvSalle, Zone z) {
+    public static void InitJeux(String csvSalle, Zone z) {
         FormatCsv salleCSV = new FormatCsv(csvSalle, ';');
         salleCSV.lire();
-        salleCSV.donnees.forEach(s -> z.ajoutSalle(s.get(0), s.get(1), s.get(2), s.get(3), s.get(4),s.get(5), s.get(6)));
-
+        salleCSV.donnees.forEach(s -> z.ajoutSalle(s.get(0), s.get(1), s.get(2), s.get(3), s.get(4), s.get(5), s.get(6)));
     }
 
     /**
@@ -115,9 +112,11 @@ public class Jeux {
 
     /**
      * Permet de lire un fichier texte
+     *
      * @param s
      */
-    public static void LireFichier(String s) {
+    public static String LireFichier(String s) {
+        StringBuilder message = new StringBuilder();
         try {
             File f = new File(s);
             FileReader fr = new FileReader(f);
@@ -127,23 +126,30 @@ public class Jeux {
                 String line = br.readLine();
 
                 while (line != null) {
-                    System.out.println(line);
+                    message.append(line).append("\n");
                     line = br.readLine();
                 }
 
                 br.close();
                 fr.close();
             } catch (IOException exception) {
-                System.out.println("Erreur lors de la lecture : " + exception.getMessage());
+                message.append("Erreur lors de la lecture : " + exception.getMessage());
             }
         } catch (FileNotFoundException exception) {
-            System.out.println("Le fichier n'a pas été trouvé");
+            message.append("Le fichier n'a pas été trouvé");
         }
+        
+        return message.toString();
     }
-    
-    
-    public void setControlleur(ControleurJeux c){
+
+    public void setControlleur(ControleurJeux c) {
         this.controle = c;
     }
+
+    public void setP(PersonnagePrincipal p) {
+        this.p = p;
+    }
+    
+    
 
 }

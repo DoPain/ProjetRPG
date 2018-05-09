@@ -29,21 +29,21 @@ public class Inventaire {
      * Permet d'ajouter un objet dans l'inventaire du joueur
      * @param i
      */
-    public void ajouter(Objet i){
+    public String ajouter(Objet i){
         listeObjets.put(i.obtenirNom(), i);
-        System.out.println("Vous avez ramasser " + i.obtenirNom() + "\n");
+        return ("Vous avez ramasser " + i.obtenirNom() + "\n \n");
     }
     
     /**
      * Permet de supprimer un objet de l'inventaire du personnage
      * @param i
      */
-    public void supprimerObjetInventaire(Objet i){
+    public String supprimerObjetInventaire(Objet i){
         if (listeObjets.size() > 0){
             listeObjets.remove(i.obtenirNom());
-            System.out.println("Vous avez jeté " + i.obtenirNom() + "\n");
+            return ("Vous avez jeté " + i.obtenirNom() + "\n");
         }else {
-            System.out.println("Vous ne pouvez pas jeter du vide" + "\n");
+            return ("Vous ne pouvez pas jeter du vide" + "\n");
         }
         
     }
@@ -59,18 +59,21 @@ public class Inventaire {
     /**
      * Permet d'afficher l'inventaire actuel du personnage
      */
-    public void afficher(){
+    public String afficher(){
+        final StringBuilder message = new StringBuilder();
         if (listeObjets.size() > 0){
             listeObjets.forEach((k,v) -> {
                 if (v.obtenirDureeVie() != null && v.obtenirMunitions() == null){
-                    System.out.printf(k + " il lui reste " + v.obtenirDureeVie() + " de durée de vie." + "\n");
+                    message.append(String.format(k + " il lui reste " + v.obtenirDureeVie() + " de durée de vie." + "\n"));
                 }else  if (v.obtenirMunitions() != null && v.obtenirDureeVie() == null){
-                    System.out.printf(k + " il lui reste " + v.obtenirMunitions() + " de munitions." + "\n");
+                    message.append(String.format(k + " il lui reste " + v.obtenirMunitions() + " de munitions." + "\n"));
                 }
             });
         }else {
-            System.out.println("Vous n'avez rien dans votre inventaire" + "\n");
-        }           
+            message.append("Vous n'avez rien dans votre inventaire" + "\n");
+        }
+        
+        return message.toString();
     }
     
 }

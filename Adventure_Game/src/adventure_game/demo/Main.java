@@ -18,24 +18,15 @@ import javafx.stage.Stage;
  * @author dmorax
  */
 public class Main extends Application{
-    
-    /**
-     *
-     */
-    private static final String csvSalle = "texte/salle.csv";
 
-    /**
-     *
-     */
-    private static Jeux j = new Jeux();
-    
+    private Jeux j = new Jeux();
     /**
      *
      * @param args
      */
     public static void main(String[] args) {
-        j.lancer(csvSalle);
-        //launch(args);
+        //j.lancer(csvSalle);
+        launch(args);
     }
 
     @Override
