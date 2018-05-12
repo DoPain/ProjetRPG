@@ -29,10 +29,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Listes d'actions que vous pouvez effectuer : " />
+                  <TextArea fx:id="actions" prefHeight="92.0" prefWidth="542.0" />
                </children>
             </HBox>
-            <ListView fx:id="actions" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
       <TextArea fx:id="jeux" prefHeight="47.0" prefWidth="504.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />

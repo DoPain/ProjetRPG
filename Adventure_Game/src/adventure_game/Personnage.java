@@ -63,4 +63,10 @@ public abstract class Personnage {
         return salle;
     }
 
+    public void setPointsVie(int pointsVie) {
+        this.pointsVie = pointsVie;
+    }
+    
+    
+
 }

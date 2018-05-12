@@ -35,7 +35,7 @@ public class ControleurJeux implements Initializable {
     private TextArea jeux;
     
     @FXML
-    private ListView actions;
+    private TextArea actions;
     
     @FXML
     private ListView inventaire;
@@ -67,6 +67,7 @@ public class ControleurJeux implements Initializable {
             entrerCommande.clear();
             affichageInventaire();
             affichageLocalisation();
+            affichageCaracteristiques();
         }
        
     }
@@ -74,10 +75,18 @@ public class ControleurJeux implements Initializable {
     public void affichageInventaire(){
         ObservableList<String> objets = FXCollections.observableArrayList();
         for(Objet o : p.obtenirInventaire().obtenirListeObjets().values()){
+            System.out.println(o.obtenirDureeVie());
             objets.add(o.obtenirNom() + " (" + ((o.obtenirMunitions() == null) ? "" : + o.obtenirMunitions()) + 
                                           ((o.obtenirDureeVie() == null) ? "" : o.obtenirDureeVie()) + ")");
         }
         inventaire.setItems(objets);
+    }
+    
+    public void affichageCaracteristiques(){
+        ObservableList<String> carac = FXCollections.observableArrayList();
+        carac.add("HP: " + p.obtenirPointsVie());
+        carac.add("Degats: " + p.obtenirDommages());
+        caracteristiques.setItems(carac);
     }
     
     @Override
@@ -90,10 +99,17 @@ public class ControleurJeux implements Initializable {
        jeux.setEditable(false);
        affichageLocalisation();
        affichageInventaire();
+       affichageActions();
+       affichageCaracteristiques();
     }
     
     public void affichageLocalisation(){
         localisation.setEditable(false);
         localisation.setText(p.salle.decrire());
+    }
+    
+    public void affichageActions(){
+        actions.setEditable(false);
+        actions.setText(Jeux.LireFichier("texte/commandes.txt"));
     }
 }

@@ -38,11 +38,11 @@ public class PersonnagePrincipal extends Personnage {
      */
     public void attaquerAvecArme(Objet i, Ennemi e) {
         if (i.obtenirMunitions() != null && i.obtenirDureeVie() == null) {
-            i.munitionsBaisse(i);
+            i.munitionsBaisse();
             e.pointsVie -= i.obtenirDegats();
         } else if (i.obtenirDureeVie() != null && i.obtenirMunitions() == null) {
             e.pointsVie -= i.obtenirDegats();
-            i.duréeVieBaisse(i);
+            i.duréeVieBaisse();
         }
     }
 
@@ -54,7 +54,8 @@ public class PersonnagePrincipal extends Personnage {
         afficherInventaire();
         Objet i = Arme.chaineVersArme(arme);
 
-        if (inventairePersonnage.obtenirListeObjets().size() > 0 && salle.obtenirEnnemi() != null && inventairePersonnage.obtenirListeObjets().values().contains(i)) {
+        if (inventairePersonnage.obtenirListeObjets().size() > 0 && salle.obtenirEnnemi() != null && inventairePersonnage.obtenirListeObjets().values().contains(i)
+                && (i.obtenirDureeVie() > 0 || i.obtenirMunitions() > 0)) {
             message += ("Points de vie de l'ennemi avant l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
             message += ("Vos points de vies avant l'attaque " + this.pointsVie + "\n \n");
             switch (arme) {
@@ -78,11 +79,8 @@ public class PersonnagePrincipal extends Personnage {
             }
             message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");
             attaquerAvecArme(i, salle.obtenirEnnemi());
-            if (i.obtenirMunitions() == null) {
-                i.duréeVieBaisse(i);
-            } else if (i.obtenirDureeVie() == null) {
-                i.munitionsBaisse(i);
-            }
+            salle.obtenirEnnemi().attaque(this); //Ceci correspond à la riposte de l'ennemi
+            message+= ("Attention votre ennemi riposte! \n\n");
             if (salle.obtenirEnnemi().pointsVie > 0) {
             message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
         } else {
@@ -98,6 +96,9 @@ public class PersonnagePrincipal extends Personnage {
         }
         } else {
             message += ("L'arme précisé n'est pas présente dans votre inventaire et/ou il n'y a pas d'ennemi dans cette salle \n \n");
+        }
+        if(i.obtenirDureeVie() == 0 || i.obtenirMunitions() == 0){
+            message+=("Votre arme n'est plus utilisable");
         }
      
         return message;

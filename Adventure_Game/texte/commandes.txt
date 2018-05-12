@@ -1,0 +1,9 @@
+ - examiner : voir ce qui se trouve dans la salle
+ - attaquer + objet ou (poings), veuillez d'abord verifier si un ennemi est présent. 
+ - ramasser + nomObjet 			 
+ - jeter + nomObjet : veuillez à d'abord vérifier votre inventaire avant de jeter.
+ - bouger + idSalle
+ - ennemi : permet d'afficher l'ennemi présent dans la salle.
+ - voisins : permet d'afficher la liste de salle voisines, il vous suffit ensuite d'écrire "bouger" + le numéro de la salle voisine.
+ - inventaire : permet de voir le contenu de votre inventaire.
+ - quitter : permet de quitter le jeux.

@@ -12,19 +12,9 @@ package adventure_game;
  */
 public enum Zombie {
     
-    /**
-     *
-     */
+
     BOSS(100,60),
-
-    /**
-     *
-     */
     ZOMBIE2(60,30),
-
-    /**
-     *
-     */
     ZOMBIE1(40,10);
     
     /**
@@ -65,6 +55,8 @@ public enum Zombie {
     private static Ennemi zombieVersEnnemi(Zombie z){
         return new Ennemi(z.name(),z.pointsVie, z.dommages,null);
     }
+    
+   
            
     
 }
