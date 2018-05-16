@@ -3,12 +3,10 @@ package adventure_game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -75,7 +73,6 @@ public class ControleurJeux implements Initializable {
     public void affichageInventaire(){
         ObservableList<String> objets = FXCollections.observableArrayList();
         for(Objet o : p.obtenirInventaire().obtenirListeObjets().values()){
-            System.out.println(o.obtenirDureeVie());
             objets.add(o.obtenirNom() + " (" + ((o.obtenirMunitions() == null) ? "" : + o.obtenirMunitions()) + 
                                           ((o.obtenirDureeVie() == null) ? "" : o.obtenirDureeVie()) + ")");
         }

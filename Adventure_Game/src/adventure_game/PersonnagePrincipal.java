@@ -51,7 +51,6 @@ public class PersonnagePrincipal extends Personnage {
      */
     public String attaquer(String arme) {
         String message = "";
-        afficherInventaire();
         Objet i = Arme.chaineVersArme(arme);
 
         if (inventairePersonnage.obtenirListeObjets().size() > 0 && salle.obtenirEnnemi() != null && inventairePersonnage.obtenirListeObjets().values().contains(i)
@@ -103,6 +102,26 @@ public class PersonnagePrincipal extends Personnage {
      
         return message;
 
+    }
+    
+    public String utiliser(String objet){
+        String message = "";
+        Objet i = Arme.chaineVersArme(objet);
+        int ptsVie = 10;
+        
+         if (inventairePersonnage.obtenirListeObjets().size() > 0  && inventairePersonnage.obtenirListeObjets().values().contains(i) 
+                 && (i.obtenirDureeVie() == null && i.obtenirMunitions() == null && i.obtenirDegats() == 0)) {
+             switch (objet) {
+                case "POMME":
+                    i = Arme.chaineVersArme(objet);
+                    break;
+            }
+             message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + ptsVie + " de points de vie. \n\n");
+             this.pointsVie += ptsVie;
+         }else {
+             message += ("Vous ne possédez pas cet objet veuillez vérifier votre inventaire ou cet objet ne peut pas s'utiliser de cette manière \n\n");
+         }
+         return message;
     }
 
     /**

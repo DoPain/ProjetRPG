@@ -112,6 +112,8 @@ public class Salle{
             }else if (item.obtenirMunitions() != null && item.obtenirDureeVie() == null){
                 return ("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
                         + item.obtenirMunitions() + " de munitions" + "\n\n");
+            }else if (item.obtenirDureeVie() == null && item.obtenirMunitions() == null){
+                return ("Dans cette salle il y a : " + item.obtenirNom() + ". \n\n");
             }         
         }else {
             return ("Il n'y a pas d'objet dans cette salle \n");

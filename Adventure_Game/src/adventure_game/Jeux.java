@@ -24,10 +24,7 @@ public class Jeux {
     
     public Jeux (){
     }
-    /**
-     *
-     * @param csvSalle
-     */
+
     public String traiterCommande(String s) {       
         String message = "";
 
@@ -57,6 +54,9 @@ public class Jeux {
                 } else {
                     message += ("Vous devez préciser un objet présent dans votre inventaire \n");
                 }
+                break;
+            case "utiliser":
+                message += p.utiliser(arguments[1].toUpperCase());
                 break;
             case "attaquer":
                 message += p.attaquer(arguments[1].toUpperCase());

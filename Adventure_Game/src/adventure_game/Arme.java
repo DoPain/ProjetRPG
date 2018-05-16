@@ -15,7 +15,8 @@ public enum Arme {
     M4(null,30,50),
     COUTEAU(10,null,20),
     HACHE(15,null,25),
-    ARBALETTE(null,6,25);
+    ARBALETTE(null,6,25),
+    POMME(null,null,0);
     
     /**
      * Correspond à la durée de vie de l'objet. Cette durée de vie est uniquement associé à une 
