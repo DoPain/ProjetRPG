@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author dmorax
  */
 public class Zone {
-    
+
     /**
      *
      */
@@ -21,13 +21,13 @@ public class Zone {
     /**
      *
      */
-    private static Salle salleCommencement = new Salle(0, null,null);
+    private static Salle salleCommencement = new Salle(0, null, null);
 
     /**
      *
      */
     private static HashMap<Integer, Salle> salles;
-    
+
     /**
      *
      */
@@ -36,7 +36,7 @@ public class Zone {
         
         salles.put(0, salleCommencement);        
     }
-    
+
     /**
      *
      * @param id
@@ -47,24 +47,34 @@ public class Zone {
      * @param sud
      * @param est
      */
-    public void ajoutSalle(String id, String ennemi, String item, String nord, String ouest, String sud, String est) {
-        Salle s = new Salle(Integer.parseInt(id), Zombie.chaineVersEnnemi(ennemi), Arme.chaineVersArme(item));        
-        s.ajoutVoisins(Integer.parseInt(nord), Direction.NORD);
-        s.ajoutVoisins(Integer.parseInt(ouest),Direction.OUEST);
-        s.ajoutVoisins(Integer.parseInt(sud),Direction.SUD);
-        s.ajoutVoisins(Integer.parseInt(est),Direction.EST);
+    public void ajoutSalle(String id, String ennemi, String item, String sud, String est, String nord, String ouest) {
+        Salle s = new Salle(Integer.parseInt(id), Zombie.chaineVersEnnemi(ennemi), Arme.chaineVersArme(item));
+        
+        if (!nord.equals("-1")) {
+            s.ajoutVoisins(Integer.parseInt(nord), Direction.NORD);
+        }
+        if (!ouest.equals("-1")) {
+            s.ajoutVoisins(Integer.parseInt(ouest), Direction.OUEST);
+        }
+        if (!sud.equals("-1")) {
+            s.ajoutVoisins(Integer.parseInt(sud), Direction.SUD);
+        } 
+        if (!est.equals("-1")) {
+            s.ajoutVoisins(Integer.parseInt(est), Direction.EST);
+        } 
+ 
         salles.put(Integer.parseInt(id), s);
     }
-    
+
     /**
      *
      * @param s
      * @return
      */
     public static Salle entierVersSalle(int s) {
-            return salles.get(s);
+        return salles.get(s);
     }
-    
+
     /**
      *
      * @return

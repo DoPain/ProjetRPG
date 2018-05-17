@@ -76,4 +76,8 @@ public class Inventaire {
         return message.toString();
     }
     
+    public Objet obtenirObjet(String s){
+        return listeObjets.get(s);
+    }
+    
 }

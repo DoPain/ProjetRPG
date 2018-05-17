@@ -1,6 +1,5 @@
 package adventure_game;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /*
@@ -88,25 +87,15 @@ public class Objet {
      */
     public void munitionsBaisse() {
             this.munitions--;       
-        if (this.munitions == 0) {
-            System.out.println("Munitions épuisées");
-        }
     }
 
     /**
      * Permet de baisser la durée de vie d'une arme blanche quand celle-ci sera utilisé
      * @param e
      */
-    public void duréeVieBaisse() { 
-            System.out.println(this.dureeVie);
+    public void duréeVieBaisse() {        
             this.dureeVie--;
-            System.out.println(this.dureeVie);
-            if (this.dureeVie == 0) {
-                System.out.println("Votre arme n'est plus utilisable" + "\n");
-            }
-        
-
-    }
+  }
 
     @Override
     public boolean equals(Object obj) {

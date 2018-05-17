@@ -87,7 +87,7 @@ public class Salle{
         Salle voisine = Zone.entierVersSalle(i);
         if(voisine != null) {
             sallesVoisines.put(d, voisine);
-            voisine.sallesVoisines.put(d, this);
+            voisine.sallesVoisines.put(d.oppose(), this);
         }
     }
 
