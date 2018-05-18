@@ -30,7 +30,6 @@ public abstract class Personnage {
      * Constructeur de la classe
      * @param pointsVie
      * @param dommagesBase
-     * @param vitesseAttaque
      * @param s
      */
     public Personnage(int pointsVie, int dommagesBase, Salle s) {

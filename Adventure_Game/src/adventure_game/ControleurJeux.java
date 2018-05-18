@@ -24,6 +24,7 @@ public class ControleurJeux implements Initializable {
     private Jeux jeu;
     
     private static final String csvSalle = "texte/salle.csv";
+    private static final String csvObjet = "texte/item.csv";
     
     Zone z = new Zone();
     
@@ -89,7 +90,7 @@ public class ControleurJeux implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        jeu.setP(p);
-       jeu.InitJeux(csvSalle, z);
+       jeu.initJeux(csvSalle,csvObjet,z);
        Zone.obtenirSalleCommencement().ajoutVoisins(1, Direction.EST);
        jeux.setWrapText(true);
        jeux.appendText(Jeux.LireFichier("texte/debut.txt"));

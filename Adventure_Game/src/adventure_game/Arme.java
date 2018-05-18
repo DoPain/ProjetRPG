@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package adventure_game;
 
 /**
@@ -16,6 +11,7 @@ public enum Arme {
     COUTEAU(10,null,20),
     HACHE(15,null,25),
     ARBALETTE(null,6,25);
+
     
     /**
      * Correspond à la durée de vie de l'objet. Cette durée de vie est uniquement associé à une 
@@ -65,7 +61,7 @@ public enum Arme {
      * @return
      */
     private static Objet armeVersItem(Arme a){
-        return new Objet(a.name(), a.dureeVie, a.munitions, a.degats);
+        return new Objet(0,a.name(), a.dureeVie, a.munitions, a.degats);
     }
     
 }

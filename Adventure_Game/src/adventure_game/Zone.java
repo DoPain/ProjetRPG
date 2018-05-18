@@ -16,11 +16,6 @@ public class Zone {
     /**
      *
      */
-    private final int nbSalles = 4;
-
-    /**
-     *
-     */
     private static Salle salleCommencement = new Salle(0, null, null);
 
     /**
@@ -33,7 +28,6 @@ public class Zone {
      */
     public Zone() {        
         salles = new HashMap<>();
-        
         salles.put(0, salleCommencement);        
     }
 
@@ -47,8 +41,8 @@ public class Zone {
      * @param sud
      * @param est
      */
-    public void ajoutSalle(String id, String ennemi, String item, String sud, String est, String nord, String ouest) {
-        Salle s = new Salle(Integer.parseInt(id), Zombie.chaineVersEnnemi(ennemi), Arme.chaineVersArme(item));
+    public void ajoutSalle(String id, String ennemi, Objet item, String sud, String est, String nord, String ouest) {
+        Salle s = new Salle(Integer.parseInt(id), Zombie.chaineVersEnnemi(ennemi), item);
         
         if (!nord.equals("-1")) {
             s.ajoutVoisins(Integer.parseInt(nord), Direction.NORD);

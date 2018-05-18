@@ -208,5 +208,4 @@ public class Salle{
         return ("Vous vous situez dans la salle n°" + obtenirId() + " \n" + "Voici les salles voisines à la votre : " + afficherVoisins());
     }
     
-
 }

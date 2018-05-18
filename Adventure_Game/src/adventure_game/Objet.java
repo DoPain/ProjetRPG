@@ -13,6 +13,8 @@ import java.util.Objects;
  */
 public class Objet {
 
+    private int id;
+    
     /**
      * Correspond à la durée de vie de l'objet. Cette durée de vie est uniquement associé à une 
      * arme blanche (couteau ou hache)
@@ -42,7 +44,8 @@ public class Objet {
      * @param munitions
      * @param degats
      */
-    public Objet(String nom, Integer dureeVie, Integer munitions, int degats) {
+    public Objet(int id, String nom, Integer dureeVie, Integer munitions, int degats) {
+        this.id = id;
         this.nom = nom;
         this.dureeVie = dureeVie;
         this.munitions = munitions;
@@ -81,9 +84,18 @@ public class Objet {
         return this.degats;
     }
 
+    public int obtenirId() {
+        return id;
+    }
+
+    public void definirId(int id) {
+        this.id = id;
+    }
+    
+    
+
     /**
      * Permet de baisser les munitions d'une arme à feu quand celle-ci sera utilisé
-     * @param e
      */
     public void munitionsBaisse() {
             this.munitions--;       
@@ -91,7 +103,6 @@ public class Objet {
 
     /**
      * Permet de baisser la durée de vie d'une arme blanche quand celle-ci sera utilisé
-     * @param e
      */
     public void duréeVieBaisse() {        
             this.dureeVie--;

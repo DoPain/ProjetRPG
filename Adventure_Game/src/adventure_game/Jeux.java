@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -92,15 +96,49 @@ public class Jeux {
     }
 
     /**
-     * Initialise le jeux en lisant le fichier csv
+     * Initialise le jeux en lisant le fichier csv et en ajoutant à la salle courante les éléments présent dans le fichier
      *
      * @param csvSalle
      * @param z
      */
-    public static void InitJeux(String csvSalle, Zone z) {
+    public static void initJeux(String csvSalle,String csvItem, Zone z) {
         FormatCsv salleCSV = new FormatCsv(csvSalle, ';');
         salleCSV.lire();
-        salleCSV.donnees.forEach(s -> z.ajoutSalle(s.get(0), s.get(1), s.get(2), s.get(3), s.get(4), s.get(5), s.get(6)));
+        Map<Integer,Objet> objet = creerObjet(csvItem);
+        for (ArrayList<String> s : salleCSV.donnees){
+            String id = s.get(0);
+            String ennemi = s.get(1);
+            Objet idItem = objet.get(Integer.valueOf(s.get(2)));
+            String sud = s.get(3);
+            String est = s.get(4);
+            String nord = s.get(5);
+            String ouest = s.get(6);
+            z.ajoutSalle(id, ennemi, idItem, sud, est, nord, ouest);
+        }
+        
+    }
+    
+    public static Map<Integer,Objet> creerObjet(String csvItem) {
+        FormatCsv itemCSV = new FormatCsv(csvItem, ';');
+        String nul = "-1";
+        Map objet = new HashMap<>();
+        itemCSV.lire();
+        for(ArrayList<String> o : itemCSV.donnees){
+            int id = Integer.valueOf(o.get(0));
+            String nom = o.get(1);
+            Integer dureeVie = null;
+            if(!o.get(2).equalsIgnoreCase("null")){
+                dureeVie = Integer.valueOf(o.get(2));
+            }
+            Integer munitions = null;
+            if(!o.get(3).equalsIgnoreCase("null")){
+                munitions = Integer.valueOf(o.get(3));
+            }
+            int degats = Integer.valueOf(o.get(4));
+            Objet ob = new Objet(id, nom, dureeVie, munitions, degats);
+            objet.put(id,ob);
+        }
+        return objet;
     }
 
     /**

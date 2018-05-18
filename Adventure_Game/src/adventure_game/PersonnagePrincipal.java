@@ -55,13 +55,15 @@ public class PersonnagePrincipal extends Personnage {
     public String attaquer(String arme) {
         String message = "";
         Objet i = Arme.chaineVersArme(arme);
+                        System.out.println(inventairePersonnage.obtenirListeObjets());
 
         if (inventairePersonnage.obtenirListeObjets().size() > 0 && salle.obtenirEnnemi() != null && inventairePersonnage.obtenirListeObjets().values().contains(i)
-                && (i.obtenirDureeVie() > 0 || i.obtenirMunitions() > 0)) {
+                && ((i.obtenirDureeVie() != null && i.obtenirDureeVie() > 0 ) ||(i.obtenirMunitions() != null && i.obtenirMunitions() > 0))) {
             message += ("Points de vie de l'ennemi avant l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
             message += ("Vos points de vies avant l'attaque " + this.pointsVie + "\n \n");
             
             i = inventairePersonnage.obtenirObjet(arme);
+
             
             message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");  
             attaquerAvecArme(i, salle.obtenirEnnemi());
@@ -70,7 +72,7 @@ public class PersonnagePrincipal extends Personnage {
             message += ("Attention votre ennemi riposte! \n\n");
             
             if (salle.obtenirEnnemi().pointsVie > 0) {
-                message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
+                message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n\n");
             } else {
                 this.obtenirSalle().supprimerEnnemiSalle();
                 message += ("Votre ennemi est mort " + "\n");
@@ -84,9 +86,7 @@ public class PersonnagePrincipal extends Personnage {
                 System.exit(0);
             }
             
-            System.out.println(i);
-            System.out.println(i.obtenirDureeVie());
-            System.out.println(i.obtenirMunitions());
+
             
             if ((i.obtenirDureeVie() != null && i.obtenirDureeVie() == 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() == 0)) {
                 message += ("Votre arme n'est plus utilisable");
