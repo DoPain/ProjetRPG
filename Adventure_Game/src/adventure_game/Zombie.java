@@ -13,7 +13,7 @@ package adventure_game;
 public enum Zombie {
     
 
-    BOSS(100,60),
+    BOSS(100,100),
     ZOMBIE2(60,30),
     ZOMBIE1(40,10);
     

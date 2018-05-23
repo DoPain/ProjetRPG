@@ -40,7 +40,7 @@ public class Ennemi extends Personnage {
         return nom;
     }    
     
-     public void attaque(PersonnagePrincipal p){
+     public void ennemiAttaque(PersonnagePrincipal p){
         p.setPointsVie(p.obtenirPointsVie()-this.dommages);
     }
     

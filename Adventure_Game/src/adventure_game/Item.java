@@ -4,13 +4,14 @@ package adventure_game;
  *
  * @author dmorax
  */
-public enum Arme {
+public enum Item {
 
     PISTOLET(null,10,40),
     M4(null,30,50),
     COUTEAU(10,null,20),
     HACHE(15,null,25),
-    ARBALETTE(null,6,25);
+    ARBALETTE(null,6,25),
+    POMME(2,null,0);
 
     
     /**
@@ -36,7 +37,7 @@ public enum Arme {
      * @param munitions
      * @param degats
      */
-    Arme(Integer dureeVie, Integer munitions, int degats){
+    Item(Integer dureeVie, Integer munitions, int degats){
         this.dureeVie = dureeVie;
         this.munitions = munitions;
         this.degats = degats;
@@ -50,7 +51,7 @@ public enum Arme {
      * @return
      */
     public static Objet chaineVersArme(String s){
-        return armeVersItem(Arme.valueOf(s));
+        return armeVersObjet(Item.valueOf(s));
     }
     
     
@@ -60,7 +61,7 @@ public enum Arme {
      * @param a
      * @return
      */
-    private static Objet armeVersItem(Arme a){
+    private static Objet armeVersObjet(Item a){
         return new Objet(0,a.name(), a.dureeVie, a.munitions, a.degats);
     }
     

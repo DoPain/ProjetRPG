@@ -34,6 +34,7 @@ public class Salle{
      *
      */
     private Objet item;
+    
     //private HashMap<String,Objets> ItemsSalle;
 
     /**
@@ -116,7 +117,7 @@ public class Salle{
                 return ("Dans cette salle il y a : " + item.obtenirNom() + ". \n\n");
             }         
         }else {
-            return ("Il n'y a pas d'objet dans cette salle \n");
+            return ("Il n'y a pas d'objet dans cette salle \n\n");
         }
         
         return "";

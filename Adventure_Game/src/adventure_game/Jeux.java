@@ -22,8 +22,6 @@ import java.util.Scanner;
  */
 public class Jeux {
 
-    private ControleurJeux controle;
-
     private PersonnagePrincipal p ;
     
     public Jeux (){
@@ -32,6 +30,7 @@ public class Jeux {
     public String traiterCommande(String s) {       
         String message = "";
 
+        System.out.println(p.obtenirSalle().obtenirItem());
         String start = s.toLowerCase();
         String[] arguments = start.split(" ");
 
@@ -46,7 +45,7 @@ public class Jeux {
                 break;
             case "ramasser":
                 if (arguments.length >= 2) {
-                    message += p.ramasser(Arme.chaineVersArme(arguments[1].toUpperCase()));
+                    message += p.ramasser(Item.chaineVersArme(arguments[1].toUpperCase()));
                     
                 } else {
                     message += ("Vous devez préciser un objet présent dans la salle \n");
@@ -54,7 +53,7 @@ public class Jeux {
                 break;
             case "jeter":
                 if (arguments.length >= 2) {
-                    p.jeter(Arme.chaineVersArme(arguments[1].toUpperCase()));
+                    p.jeter(p.obtenirInventaire().obtenirObjet(arguments[1].toUpperCase()));
                 } else {
                     message += ("Vous devez préciser un objet présent dans votre inventaire \n");
                 }
@@ -180,9 +179,9 @@ public class Jeux {
         return message.toString();
     }
 
-    public void setControlleur(ControleurJeux c) {
-        this.controle = c;
-    }
+    //public void setControlleur(ControleurJeux c) {
+    //    this.controle = c;
+   // }
 
     public void setP(PersonnagePrincipal p) {
         this.p = p;

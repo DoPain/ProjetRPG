@@ -3,6 +3,7 @@ package adventure_game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,11 +58,15 @@ public class ControleurJeux implements Initializable {
         
     }
     
-    public void saisieCommande(KeyEvent e){
+    public void saisieCommande(KeyEvent e) throws InterruptedException {
         if(KeyCode.ENTER == e.getCode()){
             String affichage;
             
             affichage = jeu.traiterCommande(entrerCommande.getText());
+            if (p.pointsVie < 0){
+                TimeUnit.SECONDS.sleep(1);
+                System.exit(0);
+            }
             jeux.appendText(affichage);
             entrerCommande.clear();
             affichageInventaire();

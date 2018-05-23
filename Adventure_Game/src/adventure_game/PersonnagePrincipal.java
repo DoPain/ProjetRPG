@@ -1,6 +1,7 @@
 package adventure_game;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,6 +13,8 @@ import java.util.Scanner;
  * @author dmorax
  */
 public class PersonnagePrincipal extends Personnage {
+
+    private long millis = 5000;
 
     /**
      * Correspond à l'inventaire du personnage
@@ -53,47 +56,41 @@ public class PersonnagePrincipal extends Personnage {
      *
      */
     public String attaquer(String arme) {
+        Objet i = inventairePersonnage.obtenirObjet(arme);
         String message = "";
-        Objet i = Arme.chaineVersArme(arme);
-                        System.out.println(inventairePersonnage.obtenirListeObjets());
 
-        if (inventairePersonnage.obtenirListeObjets().size() > 0 && salle.obtenirEnnemi() != null && inventairePersonnage.obtenirListeObjets().values().contains(i)
-                && ((i.obtenirDureeVie() != null && i.obtenirDureeVie() > 0 ) ||(i.obtenirMunitions() != null && i.obtenirMunitions() > 0))) {
-            message += ("Points de vie de l'ennemi avant l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
-            message += ("Vos points de vies avant l'attaque " + this.pointsVie + "\n \n");
-            
-            i = inventairePersonnage.obtenirObjet(arme);
+        System.out.println(inventairePersonnage.obtenirListeObjets());
 
-            
-            message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");  
+        if (inventairePersonnage.obtenirListeObjets().size() < 0) {
+            message += "inventaire vide\n\n";
+        } else if (i == null) {
+            message += "l'item que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
+        } else if (salle.obtenirEnnemi() != null && ((i.obtenirDureeVie() != null && i.obtenirDureeVie() > 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() > 0))) {
+
+            message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n\n");
             attaquerAvecArme(i, salle.obtenirEnnemi());
-            
-            salle.obtenirEnnemi().attaque(this); //Ceci correspond à la riposte de l'ennemi
+
+            salle.obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
             message += ("Attention votre ennemi riposte! \n\n");
-            
+
             if (salle.obtenirEnnemi().pointsVie > 0) {
                 message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n\n");
             } else {
                 this.obtenirSalle().supprimerEnnemiSalle();
                 message += ("Votre ennemi est mort " + "\n");
             }
-            
+
             if (this.pointsVie > 0) {
                 message += ("Points de vie du personnage après l'attaque " + this.pointsVie + "\n \n");
             } else {
                 message += ("Vous etes morts" + "\n"
                         + "Vous avez donc perdu, veuillez relancer le jeux \n");
-                System.exit(0);
             }
-            
-
-            
-            if ((i.obtenirDureeVie() != null && i.obtenirDureeVie() == 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() == 0)) {
-                message += ("Votre arme n'est plus utilisable");
-            }
-        }
-        else {
-            message += ("L'arme précisé n'est pas présente dans votre inventaire et/ou il n'y a pas d'ennemi dans cette salle \n \n");
+        } else if ((i.obtenirDureeVie() != null && i.obtenirDureeVie() == 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() == 0)) {
+            message += ("Votre arme n'est plus utilisable\n\n");
+        } else if (salle.obtenirEnnemi()
+                == null) {
+            message += "aucun ennemi n'est présent dans la salle\n\n";
         }
 
         return message;
@@ -102,21 +99,21 @@ public class PersonnagePrincipal extends Personnage {
 
     public String utiliser(String objet) {
         String message = "";
-        Objet i = Arme.chaineVersArme(objet);
+        Objet i = inventairePersonnage.obtenirObjet(objet);
         int ptsVie = 5;
 
-        if (inventairePersonnage.obtenirListeObjets().size() > 0 && inventairePersonnage.obtenirListeObjets().values().contains(i)
-                && (i.obtenirMunitions() == null && i.obtenirDegats() == 0)) {
-            switch (objet) {
-                case "POMME":
-
-                    break;
-            }
+        if (inventairePersonnage.obtenirListeObjets().size() < 0) {
+            message += "inventaire vide\n\n";
+        } else if (i == null) {
+            message += "l'item que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
+        } else if ((i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() > 0)) {
             message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + ptsVie + " de points de vie. \n\n");
             this.pointsVie += ptsVie;
             i.duréeVieBaisse();
-        } else {
+        } else if (!(i.obtenirMunitions() == null && i.obtenirDegats() == 0)){
             message += ("Vous ne possédez pas cet objet veuillez vérifier votre inventaire ou cet objet ne peut pas s'utiliser de cette manière \n\n");
+        } else if (i.obtenirDureeVie() == 0){
+            message +=("Vous ne pouver plus utiliser cet objet, il serai judicieux de le jeter de votre inventaire...\n\n");
         }
         return message;
     }
