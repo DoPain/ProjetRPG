@@ -1,9 +1,12 @@
+﻿ - lire + livre : permet de lire le livre se trouvant dans votre inventaire.
+ - utiliser + objet : permet d'utiliser un objet de votre inventaire.
  - examiner : voir ce qui se trouve dans la salle
- - attaquer + objet ou (poings), veuillez d'abord verifier si un ennemi est présent. 
+ - attaquer + objet, veuillez d'abord verifier si un ennemi est présent et si vous possedez l'objet. 
  - ramasser + nomObjet 			 
- - jeter + nomObjet : veuillez à d'abord vérifier votre inventaire avant de jeter.
- - bouger + idSalle
+ - jeter + nomObjet : permet de jeter un objet de votre inventaire.
+ - bouger + idSalle : permet de se deplacer dans une salle voisine
  - ennemi : permet d'afficher l'ennemi présent dans la salle.
- - voisins : permet d'afficher la liste de salle voisines, il vous suffit ensuite d'écrire "bouger" + le numéro de la salle voisine.
+ - items : permet d'afficher les items présents dans la salle.
+ - voisins : permet d'afficher la liste de salle voisines.
  - inventaire : permet de voir le contenu de votre inventaire.
  - quitter : permet de quitter le jeux.

@@ -28,6 +28,7 @@ public class Inventaire {
     /**
      * Permet d'ajouter un objet dans l'inventaire du joueur
      * @param i
+     * @return 
      */
     public String ajouter(Objet i){
         listeObjets.put(i.obtenirNom(), i);
@@ -37,6 +38,7 @@ public class Inventaire {
     /**
      * Permet de supprimer un objet de l'inventaire du personnage
      * @param i
+     * @return 
      */
     public String supprimerObjetInventaire(Objet i){
         if (listeObjets.size() > 0){
@@ -58,6 +60,7 @@ public class Inventaire {
     
     /**
      * Permet d'afficher l'inventaire actuel du personnage
+     * @return 
      */
     public String afficher(){
         final StringBuilder message = new StringBuilder();
@@ -76,6 +79,11 @@ public class Inventaire {
         return message.toString();
     }
     
+    /**
+     *
+     * @param s
+     * @return
+     */
     public Objet obtenirObjet(String s){
         return listeObjets.get(s);
     }

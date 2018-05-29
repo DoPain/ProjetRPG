@@ -11,10 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  *
@@ -22,12 +20,20 @@ import java.util.Scanner;
  */
 public class Jeux {
 
-    private PersonnagePrincipal p ;
-    
-    public Jeux (){
+    private PersonnagePrincipal p;
+
+    /**
+     * Constructeur par defaut 
+     */
+    public Jeux() {
     }
 
-    public String traiterCommande(String s) {       
+    /**
+     *
+     * @param s
+     * @return
+     */
+    public String traiterCommande(String s) {
         String message = "";
 
         System.out.println(p.obtenirSalle().obtenirItem());
@@ -40,13 +46,13 @@ public class Jeux {
                     message += p.seDeplacer(Integer.parseInt(arguments[1]));
                     message += ("Vous vous situez dans la salle n° : " + p.obtenirSalle().obtenirId() + "\n \n");
                 } else {
-                    message += ("Vous devez préciser un nom de salle \n");               
+                    message += ("Vous devez préciser un nom de salle \n");
                 }
                 break;
             case "ramasser":
                 if (arguments.length >= 2) {
                     message += p.ramasser(Item.chaineVersArme(arguments[1].toUpperCase()));
-                    
+
                 } else {
                     message += ("Vous devez préciser un objet présent dans la salle \n");
                 }
@@ -61,8 +67,14 @@ public class Jeux {
             case "utiliser":
                 message += p.utiliser(arguments[1].toUpperCase());
                 break;
+            case "lire":
+                message += p.lire(arguments[1].toUpperCase());
+                break;
             case "attaquer":
-                message += p.attaquer(arguments[1].toUpperCase());
+                message += p.attaquer(arguments[1].toUpperCase());     
+                break;
+            case "parler":
+                message += p.parler(arguments[1].toUpperCase());
                 break;
             case "quitter":
                 Quitter();
@@ -84,7 +96,7 @@ public class Jeux {
                 message += p.obtenirSalle().afficherEnnemi();
                 break;
             case "aide":
-               message += LireFichier("texte/aide.txt");
+                message += LireFichier("texte/aide.txt");
                 break;
             default:
                 message += ("Veuillez entrer une commande valide" + "\n");
@@ -95,18 +107,23 @@ public class Jeux {
     }
 
     /**
-     * Initialise le jeux en lisant le fichier csv et en ajoutant à la salle courante les éléments présent dans le fichier
+     * Initialise le jeux en lisant le fichier csv et en ajoutant à la salle
+     * courante les éléments présent dans le fichier
      *
      * @param csvSalle
+     * @param csvItem
      * @param z
      */
-    public static void initJeux(String csvSalle,String csvItem, Zone z) {
+    public static void initJeux(String csvSalle, String csvItem, Zone z) {
         FormatCsv salleCSV = new FormatCsv(csvSalle, ';');
         salleCSV.lire();
-        Map<Integer,Objet> objet = creerObjet(csvItem);
-        for (ArrayList<String> s : salleCSV.donnees){
+        Map<Integer, Objet> objet = creerObjet(csvItem);
+        for (ArrayList<String> s : salleCSV.donnees) {
             String id = s.get(0);
-            String ennemi = s.get(1);
+            String ennemi = "";
+            if (!s.get(1).equalsIgnoreCase("null")) {
+                ennemi = s.get(1);
+            }
             Objet idItem = objet.get(Integer.valueOf(s.get(2)));
             String sud = s.get(3);
             String est = s.get(4);
@@ -114,28 +131,33 @@ public class Jeux {
             String ouest = s.get(6);
             z.ajoutSalle(id, ennemi, idItem, sud, est, nord, ouest);
         }
-        
+
     }
-    
-    public static Map<Integer,Objet> creerObjet(String csvItem) {
+
+    /**
+     *
+     * @param csvItem
+     * @return
+     */
+    public static Map<Integer, Objet> creerObjet(String csvItem) {
         FormatCsv itemCSV = new FormatCsv(csvItem, ';');
         String nul = "-1";
         Map objet = new HashMap<>();
         itemCSV.lire();
-        for(ArrayList<String> o : itemCSV.donnees){
+        for (ArrayList<String> o : itemCSV.donnees) {
             int id = Integer.valueOf(o.get(0));
             String nom = o.get(1);
             Integer dureeVie = null;
-            if(!o.get(2).equalsIgnoreCase("null")){
+            if (!o.get(2).equalsIgnoreCase("null")) {
                 dureeVie = Integer.valueOf(o.get(2));
             }
             Integer munitions = null;
-            if(!o.get(3).equalsIgnoreCase("null")){
+            if (!o.get(3).equalsIgnoreCase("null")) {
                 munitions = Integer.valueOf(o.get(3));
             }
             int degats = Integer.valueOf(o.get(4));
             Objet ob = new Objet(id, nom, dureeVie, munitions, degats);
-            objet.put(id,ob);
+            objet.put(id, ob);
         }
         return objet;
     }
@@ -151,6 +173,7 @@ public class Jeux {
      * Permet de lire un fichier texte
      *
      * @param s
+     * @return 
      */
     public static String LireFichier(String s) {
         StringBuilder message = new StringBuilder();
@@ -175,18 +198,20 @@ public class Jeux {
         } catch (FileNotFoundException exception) {
             message.append("Le fichier n'a pas été trouvé");
         }
-        
+
         return message.toString();
     }
 
     //public void setControlleur(ControleurJeux c) {
     //    this.controle = c;
-   // }
+    // }
 
+    /**
+     *
+     * @param p
+     */
     public void setP(PersonnagePrincipal p) {
         this.p = p;
     }
-    
-    
 
 }

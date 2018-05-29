@@ -16,6 +16,10 @@ public enum Direction {
     EST(),
     OUEST();
 
+    /**
+     *
+     * @return
+     */
     public Direction oppose() {
         switch (this) {
             case NORD:

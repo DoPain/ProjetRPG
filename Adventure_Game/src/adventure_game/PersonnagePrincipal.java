@@ -1,7 +1,5 @@
 package adventure_game;
 
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,8 +12,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class PersonnagePrincipal extends Personnage {
 
-    private long millis = 5000;
-
     /**
      * Correspond à l'inventaire du personnage
      */
@@ -26,10 +22,11 @@ public class PersonnagePrincipal extends Personnage {
      *
      * @param pointsVies
      * @param dommages
+     * @param armure
      * @param s
      */
-    public PersonnagePrincipal(int pointsVies, int dommages, Salle s) {
-        super(pointsVies, dommages, s);
+    public PersonnagePrincipal(int pointsVies, int dommages, int armure, Salle s) {
+        super(pointsVies, dommages, armure, s);
         inventairePersonnage = new Inventaire();
     }
 
@@ -40,41 +37,39 @@ public class PersonnagePrincipal extends Personnage {
      * @param e
      */
     public void attaquerAvecArme(Objet i, Ennemi e) {
-        System.out.println("aaa");
         if (i.obtenirMunitions() != null && i.obtenirDureeVie() == null) {
             e.pointsVie -= i.obtenirDegats();
-            System.out.println("bbb");
             i.munitionsBaisse();
         } else if (i.obtenirDureeVie() != null && i.obtenirMunitions() == null) {
             e.pointsVie -= i.obtenirDegats();
             i.duréeVieBaisse();
-            System.out.println("ccc");
         }
     }
 
     /**
      *
+     * @param arme
+     * @return
      */
     public String attaquer(String arme) {
         Objet i = inventairePersonnage.obtenirObjet(arme);
         String message = "";
 
-        System.out.println(inventairePersonnage.obtenirListeObjets());
-
         if (inventairePersonnage.obtenirListeObjets().size() < 0) {
-            message += "inventaire vide\n\n";
+            message += "Inventaire vide\n\n";
         } else if (i == null) {
-            message += "l'item que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
-        } else if (salle.obtenirEnnemi() != null && ((i.obtenirDureeVie() != null && i.obtenirDureeVie() > 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() > 0))) {
+            message += "L'objet que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
+        } else if (salle.obtenirEnnemi() != null && salle.obtenirEnnemi().obtenirPointsVie() != 0
+                && ((i.obtenirDureeVie() != null && i.obtenirDureeVie() > 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() > 0))) {
 
-            message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n\n");
+            message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");
             attaquerAvecArme(i, salle.obtenirEnnemi());
 
             salle.obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
-            message += ("Attention votre ennemi riposte! \n\n");
+            message += ("Vous venez de reveiller l'ennemi... celui riposte! \n\n");
 
             if (salle.obtenirEnnemi().pointsVie > 0) {
-                message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n\n");
+                message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
             } else {
                 this.obtenirSalle().supprimerEnnemiSalle();
                 message += ("Votre ennemi est mort " + "\n");
@@ -86,35 +81,136 @@ public class PersonnagePrincipal extends Personnage {
                 message += ("Vous etes morts" + "\n"
                         + "Vous avez donc perdu, veuillez relancer le jeux \n");
             }
+
         } else if ((i.obtenirDureeVie() != null && i.obtenirDureeVie() == 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() == 0)) {
-            message += ("Votre arme n'est plus utilisable\n\n");
-        } else if (salle.obtenirEnnemi()
-                == null) {
-            message += "aucun ennemi n'est présent dans la salle\n\n";
+            message += ("L'objet n'est plus utilisable\n\n");
+        } else if (salle.obtenirEnnemi() == null) {
+            message += "Aucun ennemi n'est présent dans la salle\n\n";
+        } else if (salle.obtenirEnnemi().obtenirPointsVie() == 0) {
+            i.duréeVieBaisse();
+            message += "Vous venez d'attaquer un cadavre et par la même occasion de gaspiller des munitions...\n\n";
         }
 
         return message;
 
     }
 
+    /**
+     *
+     * @param objet
+     * @return
+     */
     public String utiliser(String objet) {
         String message = "";
         Objet i = inventairePersonnage.obtenirObjet(objet);
         int ptsVie = 5;
+        int kevlar = 20;
+        int kevlarL = 40;
 
         if (inventairePersonnage.obtenirListeObjets().size() < 0) {
-            message += "inventaire vide\n\n";
+            message += "Inventaire vide\n\n";
         } else if (i == null) {
-            message += "l'item que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
-        } else if ((i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() > 0)) {
-            message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + ptsVie + " de points de vie. \n\n");
-            this.pointsVie += ptsVie;
-            i.duréeVieBaisse();
-        } else if (!(i.obtenirMunitions() == null && i.obtenirDegats() == 0)){
+            message += "L'objet que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
+
+        } else if (i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 2) {
+            if (this.pointsVie < 96) {
+                this.pointsVie += ptsVie;
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + ptsVie + " de points de vie. \n\n");
+                i.duréeVieBaisse();
+            } else if (this.pointsVie > 95 && this.pointsVie < 100) {
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100-this.pointsVie) + " de points de vie. \n\n");
+                this.pointsVie = 100;    
+            } else {
+                message += "Vous ne pouvez plus vous rajouter de vie vous etes au maximu..\n\n";
+            }
+            if (i.obtenirDureeVie() == 0) {
+                this.inventairePersonnage.supprimerObjetInventaire(i);
+            }
+
+        } else if (i.obtenirMunitions() == null && i.obtenirDureeVie() == 1 && i.obtenirDegats() == 0) {
+            
+            if (this.armure < 81) {
+                this.armure += kevlar;
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + kevlar + " d'armure. \n\n");
+                i.duréeVieBaisse();
+            } else if (this.armure > 80 && this.armure < 100) {
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100-this.armure) + " d'armure. \n\n");
+                this.armure = 100;     
+            } else {
+                message += "Vous ne pouvez plus vous rajouter d'armure vous etes au maximu..\n\n";
+            }
+            if (i.obtenirDureeVie() == 0) {
+                this.inventairePersonnage.supprimerObjetInventaire(i);
+            }
+
+        } else if (i.obtenirMunitions() == null && i.obtenirDureeVie() == 1 && i.obtenirDegats() == 1) {
+           if (this.armure < 61) {
+                this.armure += kevlar;
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + kevlarL + " d'armure. \n\n");
+                i.duréeVieBaisse();
+            } else if (this.armure > 60 && this.armure < 100) {
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100-this.armure) + " d'armure. \n\n");
+                this.armure = 100;
+          } else {
+                message += "Vous ne pouvez plus vous rajouter d'armure vous etes au maximu..\n\n";
+            }
+
+            if (i.obtenirDureeVie() == 0) {
+                this.inventairePersonnage.supprimerObjetInventaire(i);
+            }
+
+        } else if (!(i.obtenirMunitions() == null && i.obtenirDegats() == 0)) {
             message += ("Vous ne possédez pas cet objet veuillez vérifier votre inventaire ou cet objet ne peut pas s'utiliser de cette manière \n\n");
-        } else if (i.obtenirDureeVie() == 0){
-            message +=("Vous ne pouver plus utiliser cet objet, il serai judicieux de le jeter de votre inventaire...\n\n");
+        } else if ((!(i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 2))
+                || (!(i.obtenirMunitions() == null && i.obtenirDureeVie() == 1 && i.obtenirDegats() == 0))
+                || (!(i.obtenirMunitions() == null && i.obtenirDureeVie() == 1 && i.obtenirDegats() == 1))) {
+            message += "Vous ne pouvez pas utiliser cet objet de cette manière\n\n";
         }
+        return message;
+    }
+
+    /**
+     *
+     * @param objet
+     * @return
+     */
+    public String lire(String objet) {
+        Objet i = inventairePersonnage.obtenirObjet(objet);
+        String message = "";
+        if (inventairePersonnage.obtenirListeObjets().size() < 0) {
+            message += "Inventaire vide\n\n";
+        } else if (i == null) {
+            message += "L'objet que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
+        } else if (i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 666) {
+            message += Jeux.LireFichier("texte/livre.txt");
+            this.inventairePersonnage.supprimerObjetInventaire(i);
+            this.obtenirSalle().supprimerItemSalle();
+        } else if (!(i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 100)) {
+            message += "Voyons, vous ne pouvez lire que des livres...\n\n";
+        }
+
+        return message;
+    }
+
+    /**
+     *
+     * @param ennemi
+     * @return
+     */
+    public String parler(String ennemi) {
+        Ennemi e = Zombie.chaineVersEnnemi(ennemi);
+        String message = "";
+
+        if (salle.contientEnnemi() == false) {
+            message += "Vous ne pouvez pas parler dans le vide... du moins cela ne servirai à rien..";
+        } else if (e.pointsVie == 0) {
+            message += "C'est pas sur qu'il vous réponde....";
+        } else if (e.obtenirDegats() < 9) {
+            message += Jeux.LireFichier("texte/dialogue.txt");
+        } else {
+            message += "Il est surement dangereux de vouloir parler avec ce personnage...\n\n";
+        }
+
         return message;
     }
 
@@ -123,6 +219,7 @@ public class PersonnagePrincipal extends Personnage {
      * salle actuelle
      *
      * @param i
+     * @return
      */
     public String seDeplacer(int i) {
         String message = "";
@@ -148,8 +245,10 @@ public class PersonnagePrincipal extends Personnage {
      * situe
      *
      * @param i
+     * @return
      */
     public String ramasser(Objet i) {
+        System.out.println(this.obtenirSalle().obtenirItem());
         String message = "";
         if (this.obtenirSalle().contientItem() && this.obtenirSalle().obtenirItem().equals(i)) {
             message += inventairePersonnage.ajouter(i);
@@ -168,10 +267,13 @@ public class PersonnagePrincipal extends Personnage {
     public void jeter(Objet i) {
         inventairePersonnage.supprimerObjetInventaire(i);
         salle.ajouterItemSalle(i);
+
     }
 
     /**
      * permet d'afficher le contenu de l'inventaire du personnage
+     *
+     * @return
      */
     public String afficherInventaire() {
         String message = "";
@@ -181,6 +283,10 @@ public class PersonnagePrincipal extends Personnage {
         return message;
     }
 
+    /**
+     *
+     * @return
+     */
     public Inventaire obtenirInventaire() {
         return this.inventairePersonnage;
     }

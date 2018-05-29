@@ -13,9 +13,13 @@ package adventure_game;
 public enum Zombie {
     
 
-    BOSS(100,100),
-    ZOMBIE2(60,30),
-    ZOMBIE1(40,10);
+    ZEYROK(80,60,0),
+    LOUZI(100,65,0),
+    ZOMBIE2(60,20,0),
+    ZOMBIE1(40,4,0),
+    DOVAKIN(500,100,0),
+    CADAVRE(0,0,0),
+    JAMES(5,2,0);
     
     /**
      *
@@ -25,7 +29,9 @@ public enum Zombie {
     /**
      *
      */
-    private int dommages;
+    private int degats;
+    
+    private int armure;
     
     /**
      *
@@ -33,9 +39,10 @@ public enum Zombie {
      * @param dommages
      * @param vitesseAttaque
      */
-    Zombie( int pointsVie, int dommages){
+    Zombie( int pointsVie, int degats,int armure){
         this.pointsVie = pointsVie;
-        this.dommages = dommages;
+        this.degats = degats;
+        this.armure = armure;
     }
     
     /**
@@ -53,7 +60,7 @@ public enum Zombie {
      * @return
      */
     private static Ennemi zombieVersEnnemi(Zombie z){
-        return new Ennemi(z.name(),z.pointsVie, z.dommages,null);
+        return new Ennemi(z.name(),z.pointsVie, z.degats,z.armure, null);
     }
     
    

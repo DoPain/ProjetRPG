@@ -33,21 +33,19 @@ public class Salle{
     /**
      *
      */
-    private Objet item;
+    private Objet objet;
     
-    //private HashMap<String,Objets> ItemsSalle;
-
     /**
      * Constructeur de la classe
      * @param id
      * @param ennemi
-     * @param item
+     * @param objet
      */
-    public Salle(int id, Ennemi ennemi, Objet item) {
+    public Salle(int id, Ennemi ennemi, Objet objet) {
         this.id = id;
-        //this.description = description;
+     
         this.ennemi = ennemi;
-        this.item = item;
+        this.objet = objet;
         sallesVoisines = new HashMap<>();
     }
 
@@ -94,6 +92,7 @@ public class Salle{
 
     /**
      * Permet d'afficher les voisins de la salle courante
+     * @return 
      */
     public String afficherVoisins() {
         final StringBuilder message = new StringBuilder();
@@ -104,17 +103,18 @@ public class Salle{
 
     /**
      * Permet d'afficher les objets présent dans la salle courante
+     * @return 
      */
     public String afficherItem() {
-        if (item != null){
-            if (item.obtenirDureeVie() != null && item.obtenirMunitions() == null){
-                return ("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
-                        + item.obtenirDureeVie() + " de durée de vie" + "\n\n");
-            }else if (item.obtenirMunitions() != null && item.obtenirDureeVie() == null){
-                return ("Dans cette salle il y a : " + item.obtenirNom() + ". " + "Cette arme possède " + item.obtenirDegats() + " de dégats d'attaque et lui reste " 
-                        + item.obtenirMunitions() + " de munitions" + "\n\n");
-            }else if (item.obtenirDureeVie() == null && item.obtenirMunitions() == null){
-                return ("Dans cette salle il y a : " + item.obtenirNom() + ". \n\n");
+        if (objet != null){
+            if (objet.obtenirDureeVie() != null && objet.obtenirMunitions() == null){
+                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". " + "Cette arme possède " + objet.obtenirDegats() + " de dégats d'attaque et lui reste " 
+                        + objet.obtenirDureeVie() + " de durée de vie" + "\n\n");
+            }else if (objet.obtenirMunitions() != null && objet.obtenirDureeVie() == null){
+                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". " + "Cette arme possède " + objet.obtenirDegats() + " de dégats d'attaque et lui reste " 
+                        + objet.obtenirMunitions() + " de munitions" + "\n\n");
+            }else if (objet.obtenirDureeVie() == null && objet.obtenirMunitions() == null){
+                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". \n\n");
             }         
         }else {
             return ("Il n'y a pas d'objet dans cette salle \n\n");
@@ -125,6 +125,7 @@ public class Salle{
     
     /**
      * Permet d'afficher les ennemis présents dans la salle courante
+     * @return 
      */
     public String afficherEnnemi(){
         String message = "";
@@ -138,6 +139,7 @@ public class Salle{
     
     /**
      * Permet au personnage d'examiner la salle pour savoir ce qu'il s'y trouve (objets/ennemis)
+     * @return 
      */
     public String examiner(){
         return afficherEnnemi() + afficherItem();
@@ -147,15 +149,17 @@ public class Salle{
      *
      */
     public void supprimerItemSalle(){
-        item = null; 
+        objet = null; 
     }
     
     /**
      *
+     * @param o
+     * @return  
      */
     public String ajouterItemSalle(Objet o){
-        if(this.item == null){
-            this.item = o;
+        if(this.objet == null){
+            this.objet = o;
             return "";
         }else {
             return ("Vous ne pouvez pas rajouter d'item à la salle.");
@@ -190,9 +194,13 @@ public class Salle{
      * @return
      */
     public Objet obtenirItem(){
-        return item;
+        return objet;
     }
     
+    /**
+     *
+     * @return
+     */
     public HashMap<Direction, Salle> obtenirVoisins(){
         return sallesVoisines;
     }
@@ -202,9 +210,21 @@ public class Salle{
      * @return
      */
     public boolean contientItem(){
-        return item != null;
+        return objet != null;
     }
     
+    /**
+     *
+     * @return
+     */
+    public boolean contientEnnemi(){
+        return this.ennemi !=null;
+    }
+    
+    /**
+     *
+     * @return
+     */
     public String decrire(){
         return ("Vous vous situez dans la salle n°" + obtenirId() + " \n" + "Voici les salles voisines à la votre : " + afficherVoisins());
     }

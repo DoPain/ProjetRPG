@@ -29,7 +29,7 @@ public class ControleurJeux implements Initializable {
     
     Zone z = new Zone();
     
-    PersonnagePrincipal p = new PersonnagePrincipal(100, 10, Zone.obtenirSalleCommencement());
+    PersonnagePrincipal p = new PersonnagePrincipal(100, 10,0, Zone.obtenirSalleCommencement());
     
     @FXML
     private TextArea jeux;
@@ -49,15 +49,27 @@ public class ControleurJeux implements Initializable {
     @FXML
     private TextArea localisation;
 
-
+    /**
+     *
+     * @param jeu
+     */
     public ControleurJeux(Jeux jeu) {
         this.jeu = jeu; 
     }
     
+    /**
+     *
+     * @param texte
+     */
     public void setLocation(String texte) {
         
     }
     
+    /**
+     *
+     * @param e
+     * @throws InterruptedException
+     */
     public void saisieCommande(KeyEvent e) throws InterruptedException {
         if(KeyCode.ENTER == e.getCode()){
             String affichage;
@@ -76,6 +88,9 @@ public class ControleurJeux implements Initializable {
        
     }
 
+    /**
+     *
+     */
     public void affichageInventaire(){
         ObservableList<String> objets = FXCollections.observableArrayList();
         for(Objet o : p.obtenirInventaire().obtenirListeObjets().values()){
@@ -85,10 +100,14 @@ public class ControleurJeux implements Initializable {
         inventaire.setItems(objets);
     }
     
+    /**
+     *
+     */
     public void affichageCaracteristiques(){
         ObservableList<String> carac = FXCollections.observableArrayList();
         carac.add("HP: " + p.obtenirPointsVie());
-        carac.add("Degats: " + p.obtenirDommages());
+        carac.add("Degats: " + p.obtenirDegats());
+        carac.add("Armure: " + p.obtenirArmure());
         caracteristiques.setItems(carac);
     }
     
@@ -106,11 +125,17 @@ public class ControleurJeux implements Initializable {
        affichageCaracteristiques();
     }
     
+    /**
+     *
+     */
     public void affichageLocalisation(){
         localisation.setEditable(false);
         localisation.setText(p.salle.decrire());
     }
     
+    /**
+     *
+     */
     public void affichageActions(){
         actions.setEditable(false);
         actions.setText(Jeux.LireFichier("texte/commandes.txt"));

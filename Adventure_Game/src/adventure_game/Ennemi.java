@@ -23,11 +23,11 @@ public class Ennemi extends Personnage {
      * @param nom
      * @param pointsVie
      * @param dommages
-     * @param vitesseAttaque
+     * @param armure
      * @param s
      */
-    public Ennemi(String nom, int pointsVie, int dommages, Salle s) {
-        super(pointsVie,dommages, s);
+    public Ennemi(String nom, int pointsVie, int dommages,int armure, Salle s) {
+        super(pointsVie,dommages,armure, s);
         this.nom = nom;
         
     }
@@ -40,8 +40,20 @@ public class Ennemi extends Personnage {
         return nom;
     }    
     
-     public void ennemiAttaque(PersonnagePrincipal p){
-        p.setPointsVie(p.obtenirPointsVie()-this.dommages);
+    /**
+     *
+     * @param p
+     */
+    public void ennemiAttaque(PersonnagePrincipal p){
+          if(p.obtenirArmure() > 0){
+              p.setArmure(p.obtenirArmure()-this.degats);
+              if(p.obtenirArmure() < 0){
+                p.setPointsVie(p.obtenirPointsVie()+p.obtenirArmure());
+                p.setArmure(0);
+              }
+         }else{
+             p.setPointsVie(p.obtenirPointsVie()-this.degats);
+         }      
     }
     
 }

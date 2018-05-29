@@ -6,12 +6,17 @@ package adventure_game;
  */
 public enum Item {
 
+
     PISTOLET(null,10,40),
     M4(null,30,50),
     COUTEAU(10,null,20),
     HACHE(15,null,25),
     ARBALETTE(null,6,25),
-    POMME(2,null,0);
+    POMME(2,null,0),
+    KEVLAR(1,null,0),
+    KEVLAR_LOURD(1,null,1),
+    LIVRE(666,null,0);
+
 
     
     /**

@@ -30,15 +30,16 @@ public class Objet {
     /**
      * Correspond au nom de l'objet
      */
-    private String nom;
+    private final String nom;
 
     /**
      * Correspond au degats de l'objet
      */
-    private int degats;
+    private final int degats;
 
     /**
      * Constructeur de la classe
+     * @param id
      * @param nom
      * @param dureeVie
      * @param munitions
@@ -84,16 +85,23 @@ public class Objet {
         return this.degats;
     }
 
+    /**
+     *
+     * @return
+     */
     public int obtenirId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void definirId(int id) {
         this.id = id;
     }
     
     
-
     /**
      * Permet de baisser les munitions d'une arme à feu quand celle-ci sera utilisé
      */
@@ -108,6 +116,11 @@ public class Objet {
             this.dureeVie--;
   }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

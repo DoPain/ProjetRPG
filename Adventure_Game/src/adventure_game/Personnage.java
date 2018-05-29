@@ -19,7 +19,12 @@ public abstract class Personnage {
     /**
      * Correspond aux dégats à main nue du personnage
      */
-    protected int dommages;
+    protected int degats;
+    
+    /**
+     *
+     */
+    protected int armure;
 
     /**
      * Correspond à la salle courante où se situe le personnage
@@ -30,11 +35,13 @@ public abstract class Personnage {
      * Constructeur de la classe
      * @param pointsVie
      * @param dommagesBase
+     * @param armure
      * @param s
      */
-    public Personnage(int pointsVie, int dommagesBase, Salle s) {
+    public Personnage(int pointsVie, int dommagesBase,int armure, Salle s) {
         this.pointsVie = pointsVie;
-        this.dommages = dommagesBase;
+        this.degats = dommagesBase;
+        this.armure = armure;
         this.salle = s;
     }
 
@@ -50,8 +57,8 @@ public abstract class Personnage {
      * Accesseur sur les degats à main nue du personnage
      * @return
      */
-    public int obtenirDommages() {
-        return this.dommages;
+    public int obtenirDegats() {
+        return this.degats;
     }
 
     /** 
@@ -62,10 +69,29 @@ public abstract class Personnage {
         return salle;
     }
 
+    /**
+     *
+     * @param pointsVie
+     */
     public void setPointsVie(int pointsVie) {
         this.pointsVie = pointsVie;
     }
     
+    /**
+     *
+     * @param armure
+     */
+    public void setArmure(int armure){
+        this.armure = armure;
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public int obtenirArmure() {
+        return this.armure;
+    }
     
 
 }
