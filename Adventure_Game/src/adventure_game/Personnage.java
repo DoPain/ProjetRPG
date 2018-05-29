@@ -12,7 +12,7 @@ package adventure_game;
 public abstract class Personnage {
 
     /**
-     * Correspond aux points de vie du personnage
+     * Correspond aux points de vie du personnage(ennemi ou personnagePrincipal)
      */
     protected int pointsVie;
 
@@ -30,6 +30,8 @@ public abstract class Personnage {
      * Correspond à la salle courante où se situe le personnage
      */
     protected Salle salle;
+    
+    protected int courage;
 
     /**
      * Constructeur de la classe
@@ -38,10 +40,11 @@ public abstract class Personnage {
      * @param armure
      * @param s
      */
-    public Personnage(int pointsVie, int dommagesBase,int armure, Salle s) {
+    public Personnage(int pointsVie, int dommagesBase,int armure,int courage, Salle s) {
         this.pointsVie = pointsVie;
         this.degats = dommagesBase;
         this.armure = armure;
+        this.courage = courage;
         this.salle = s;
     }
 
@@ -92,6 +95,11 @@ public abstract class Personnage {
     public int obtenirArmure() {
         return this.armure;
     }
+
+    public int obtenirCourage() {
+        return courage;
+    }
+    
     
 
 }

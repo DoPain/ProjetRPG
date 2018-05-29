@@ -26,8 +26,8 @@ public class Ennemi extends Personnage {
      * @param armure
      * @param s
      */
-    public Ennemi(String nom, int pointsVie, int dommages,int armure, Salle s) {
-        super(pointsVie,dommages,armure, s);
+    public Ennemi(String nom, int pointsVie, int dommages,int armure,int courage, Salle s) {
+        super(pointsVie,dommages,armure,courage, s);
         this.nom = nom;
         
     }
@@ -39,6 +39,7 @@ public class Ennemi extends Personnage {
     public String obtenirNom() {
         return nom;
     }    
+    
     
     /**
      *

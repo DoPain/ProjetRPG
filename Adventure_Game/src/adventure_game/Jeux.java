@@ -35,8 +35,6 @@ public class Jeux {
      */
     public String traiterCommande(String s) {
         String message = "";
-
-        System.out.println(p.obtenirSalle().obtenirItem());
         String start = s.toLowerCase();
         String[] arguments = start.split(" ");
 

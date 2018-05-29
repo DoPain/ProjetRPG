@@ -1,4 +1,5 @@
 ﻿ - lire + livre : permet de lire le livre se trouvant dans votre inventaire.
+ - parler + nomPersonnage : permet de discuter avec un personnage au choix.
  - utiliser + objet : permet d'utiliser un objet de votre inventaire.
  - examiner : voir ce qui se trouve dans la salle
  - attaquer + objet, veuillez d'abord verifier si un ennemi est présent et si vous possedez l'objet. 
@@ -10,3 +11,4 @@
  - voisins : permet d'afficher la liste de salle voisines.
  - inventaire : permet de voir le contenu de votre inventaire.
  - quitter : permet de quitter le jeux.
+

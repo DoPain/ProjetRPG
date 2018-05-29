@@ -1,7 +1,8 @@
 Allo.. Allo.. est-ce que quelqu'un m'entend??
-<< Tout en chuchotant >> Allo, ici John j'écoute?
-Bonjour John, ici l'equipe ZZ, nous sommes ici pour récupérer les derniers humains en vie pour les mettre à l'abri.
+<< Tout en chuchotant >> Allo, ici John j'\u00E9coute?
+Bonjour John, ici l'equipe ZZ, nous sommes ici pour r\u00E9cup\u00E9rer les derniers humains en vie pour les mettre \u00E0 l'abri.
 Ne perdons pas de temps! Vous voyez le batiment juste en face de vous? Rejoignez le au plus vite et traversez le.
-On vous y attends de l'autre côté pour vous enmener en sécurité.
+On vous y attends de l'autre c\u00F4t\u00E9 pour vous enmener en s\u00E9curit\u00E9.
 A tout de suite et bonne chance!
+
 

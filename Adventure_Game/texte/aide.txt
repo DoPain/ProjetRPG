@@ -14,3 +14,6 @@ Plusieurs actions seront à votre disposition :
 				 - quitter : permet de quitter le jeux.
 
 
+
+
+

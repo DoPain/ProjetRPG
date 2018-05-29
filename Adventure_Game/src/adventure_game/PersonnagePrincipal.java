@@ -16,6 +16,7 @@ public class PersonnagePrincipal extends Personnage {
      * Correspond à l'inventaire du personnage
      */
     private Inventaire inventairePersonnage;
+    
 
     /**
      * Constructeur de la classe
@@ -25,8 +26,8 @@ public class PersonnagePrincipal extends Personnage {
      * @param armure
      * @param s
      */
-    public PersonnagePrincipal(int pointsVies, int dommages, int armure, Salle s) {
-        super(pointsVies, dommages, armure, s);
+    public PersonnagePrincipal(int pointsVies, int dommages, int armure, int courage, Salle s) {
+        super(pointsVies, dommages, armure,courage, s);
         inventairePersonnage = new Inventaire();
     }
 
@@ -59,20 +60,21 @@ public class PersonnagePrincipal extends Personnage {
             message += "Inventaire vide\n\n";
         } else if (i == null) {
             message += "L'objet que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
-        } else if (salle.obtenirEnnemi() != null && salle.obtenirEnnemi().obtenirPointsVie() != 0
+        } else if (obtenirSalle().obtenirEnnemi() != null && obtenirSalle().obtenirEnnemi().obtenirPointsVie() != 0
                 && ((i.obtenirDureeVie() != null && i.obtenirDureeVie() > 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() > 0))) {
 
             message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");
-            attaquerAvecArme(i, salle.obtenirEnnemi());
+            attaquerAvecArme(i, obtenirSalle().obtenirEnnemi());
 
-            salle.obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
+            obtenirSalle().obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
             message += ("Vous venez de reveiller l'ennemi... celui riposte! \n\n");
 
-            if (salle.obtenirEnnemi().pointsVie > 0) {
-                message += ("Points de vie de l'ennemi après l'attaque " + salle.obtenirEnnemi().pointsVie + "\n");
-            } else {
+            if (obtenirSalle().obtenirEnnemi().obtenirPointsVie() > 0) {
+                message += ("Points de vie de l'ennemi après l'attaque " + obtenirSalle().obtenirEnnemi().pointsVie + "\n");
+            } else {   
+                this.courage += obtenirSalle().obtenirEnnemi().obtenirCourage();
                 this.obtenirSalle().supprimerEnnemiSalle();
-                message += ("Votre ennemi est mort " + "\n");
+                message += ("Votre ennemi est mort. " + "En mourrant il vous a leguer la totalité de son courage " + "\n\n");
             }
 
             if (this.pointsVie > 0) {
@@ -84,9 +86,9 @@ public class PersonnagePrincipal extends Personnage {
 
         } else if ((i.obtenirDureeVie() != null && i.obtenirDureeVie() == 0) || (i.obtenirMunitions() != null && i.obtenirMunitions() == 0)) {
             message += ("L'objet n'est plus utilisable\n\n");
-        } else if (salle.obtenirEnnemi() == null) {
+        } else if (obtenirSalle().obtenirEnnemi() == null) {
             message += "Aucun ennemi n'est présent dans la salle\n\n";
-        } else if (salle.obtenirEnnemi().obtenirPointsVie() == 0) {
+        } else if (obtenirSalle().obtenirEnnemi().obtenirPointsVie() == 0) {
             i.duréeVieBaisse();
             message += "Vous venez d'attaquer un cadavre et par la même occasion de gaspiller des munitions...\n\n";
         }
@@ -248,7 +250,6 @@ public class PersonnagePrincipal extends Personnage {
      * @return
      */
     public String ramasser(Objet i) {
-        System.out.println(this.obtenirSalle().obtenirItem());
         String message = "";
         if (this.obtenirSalle().contientItem() && this.obtenirSalle().obtenirItem().equals(i)) {
             message += inventairePersonnage.ajouter(i);

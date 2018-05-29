@@ -1,6 +1,7 @@
-Bonjour et bienvenu.
-Votre but est de penser uniquement à votre survie...
+Bonjour et bienvenue.
+Votre but est de penser uniquement \u00E0 votre survie...
 Pour ce faire vous devez circuler de salle en salle tout en battant les ennemis se trouvant sur votre chemin, mais attention,
 ils sont surement plus fort que ce que vous pouvez l'imaginer..
 Bon jeux et bonne chance!
-Ce livre va s'autodétruire dans 5..4..3..2..1 POUUUUF
+Ce livre va s'autod\u00E9truire dans 5..4..3..2..1 POUUUUF
+
