@@ -32,7 +32,7 @@ public class Inventaire {
      */
     public String ajouter(Objet i){
         listeObjets.put(i.obtenirNom(), i);
-        return ("Vous avez ramasser " + i.obtenirNom() + "\n \n");
+        return ("Vous avez ramassé " + i.obtenirNom() + "\n \n");
     }
     
     /**

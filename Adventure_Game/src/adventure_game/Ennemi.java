@@ -53,7 +53,12 @@ public class Ennemi extends Personnage {
                 p.setArmure(0);
               }
          }else{
-             p.setPointsVie(p.obtenirPointsVie()-this.degats);
+              if(p.obtenirPointsVie()>0){
+                  p.setPointsVie(p.obtenirPointsVie()-this.degats);
+              }else {
+                  p.setPointsVie(0);
+              }
+             
          }      
     }
     

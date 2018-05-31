@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +22,8 @@ import java.util.Map;
 public class Jeux {
 
     private PersonnagePrincipal p;
-
+    
+    private static String csvSalle;
     /**
      * Constructeur par defaut 
      */
@@ -113,6 +115,7 @@ public class Jeux {
      * @param z
      */
     public static void initJeux(String csvSalle, String csvItem, Zone z) {
+        Jeux.csvSalle = csvSalle;
         FormatCsv salleCSV = new FormatCsv(csvSalle, ';');
         salleCSV.lire();
         Map<Integer, Objet> objet = creerObjet(csvItem);
@@ -131,8 +134,8 @@ public class Jeux {
         }
 
     }
-
-    /**
+    
+   /**
      *
      * @param csvItem
      * @return
@@ -158,6 +161,21 @@ public class Jeux {
             objet.put(id, ob);
         }
         return objet;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private static List<Zombie> listeZombie() {
+        FormatCsv itemCSV = new FormatCsv(csvSalle, ';');
+        List<Zombie> zombie = new ArrayList<>();
+        itemCSV.lire();
+        for (ArrayList<String> o : itemCSV.donnees) {
+            Zombie z = Zombie.valueOf(o.get(1));
+            zombie.add(z);
+        }
+        return zombie;
     }
 
     /**
@@ -199,10 +217,14 @@ public class Jeux {
 
         return message.toString();
     }
-
-    //public void setControlleur(ControleurJeux c) {
-    //    this.controle = c;
-    // }
+    
+    public static int pointsPourGagner(){
+        int cpt = 0;
+       for(Zombie z : listeZombie()){
+           cpt+= z.obtenirCouragePerdu();
+       }
+       return cpt;
+    }
 
     /**
      *

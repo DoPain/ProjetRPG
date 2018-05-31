@@ -1,5 +1,10 @@
 package adventure_game;
 
+import java.applet.Applet;
+import java.io.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,7 +21,6 @@ public class PersonnagePrincipal extends Personnage {
      * Correspond à l'inventaire du personnage
      */
     private Inventaire inventairePersonnage;
-    
 
     /**
      * Constructeur de la classe
@@ -27,7 +31,7 @@ public class PersonnagePrincipal extends Personnage {
      * @param s
      */
     public PersonnagePrincipal(int pointsVies, int dommages, int armure, int courage, Salle s) {
-        super(pointsVies, dommages, armure,courage, s);
+        super(pointsVies, dommages, armure, courage, s);
         inventairePersonnage = new Inventaire();
     }
 
@@ -67,11 +71,13 @@ public class PersonnagePrincipal extends Personnage {
             attaquerAvecArme(i, obtenirSalle().obtenirEnnemi());
 
             obtenirSalle().obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
+
+
             message += ("Vous venez de reveiller l'ennemi... celui riposte! \n\n");
 
             if (obtenirSalle().obtenirEnnemi().obtenirPointsVie() > 0) {
                 message += ("Points de vie de l'ennemi après l'attaque " + obtenirSalle().obtenirEnnemi().pointsVie + "\n");
-            } else {   
+            } else {
                 this.courage += obtenirSalle().obtenirEnnemi().obtenirCourage();
                 this.obtenirSalle().supprimerEnnemiSalle();
                 message += ("Votre ennemi est mort. " + "En mourrant il vous a leguer la totalité de son courage " + "\n\n");
@@ -79,6 +85,9 @@ public class PersonnagePrincipal extends Personnage {
 
             if (this.pointsVie > 0) {
                 message += ("Points de vie du personnage après l'attaque " + this.pointsVie + "\n \n");
+                if (aGagné()) {
+                    message += Jeux.LireFichier("texte/fin.txt");
+                }
             } else {
                 message += ("Vous etes morts" + "\n"
                         + "Vous avez donc perdu, veuillez relancer le jeux \n");
@@ -120,8 +129,8 @@ public class PersonnagePrincipal extends Personnage {
                 message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + ptsVie + " de points de vie. \n\n");
                 i.duréeVieBaisse();
             } else if (this.pointsVie > 95 && this.pointsVie < 100) {
-                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100-this.pointsVie) + " de points de vie. \n\n");
-                this.pointsVie = 100;    
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100 - this.pointsVie) + " de points de vie. \n\n");
+                this.pointsVie = 100;
             } else {
                 message += "Vous ne pouvez plus vous rajouter de vie vous etes au maximu..\n\n";
             }
@@ -130,31 +139,31 @@ public class PersonnagePrincipal extends Personnage {
             }
 
         } else if (i.obtenirMunitions() == null && i.obtenirDureeVie() == 1 && i.obtenirDegats() == 0) {
-            
+
             if (this.armure < 81) {
                 this.armure += kevlar;
                 message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + kevlar + " d'armure. \n\n");
                 i.duréeVieBaisse();
             } else if (this.armure > 80 && this.armure < 100) {
-                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100-this.armure) + " d'armure. \n\n");
-                this.armure = 100;     
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100 - this.armure) + " d'armure. \n\n");
+                this.armure = 100;
             } else {
-                message += "Vous ne pouvez plus vous rajouter d'armure vous etes au maximu..\n\n";
+                message += "Vous ne pouvez plus vous rajouter d'armure vous etes au maximum..\n\n";
             }
             if (i.obtenirDureeVie() == 0) {
                 this.inventairePersonnage.supprimerObjetInventaire(i);
             }
 
         } else if (i.obtenirMunitions() == null && i.obtenirDureeVie() == 1 && i.obtenirDegats() == 1) {
-           if (this.armure < 61) {
-                this.armure += kevlar;
+            if (this.armure < 61) {
+                this.armure += kevlarL;
                 message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + kevlarL + " d'armure. \n\n");
                 i.duréeVieBaisse();
             } else if (this.armure > 60 && this.armure < 100) {
-                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100-this.armure) + " d'armure. \n\n");
+                message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + (100 - this.armure) + " d'armure. \n\n");
                 this.armure = 100;
-          } else {
-                message += "Vous ne pouvez plus vous rajouter d'armure vous etes au maximu..\n\n";
+            } else {
+                message += "Vous ne pouvez plus vous rajouter d'armure vous etes au maximum..\n\n";
             }
 
             if (i.obtenirDureeVie() == 0) {
@@ -186,7 +195,6 @@ public class PersonnagePrincipal extends Personnage {
         } else if (i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 666) {
             message += Jeux.LireFichier("texte/livre.txt");
             this.inventairePersonnage.supprimerObjetInventaire(i);
-            this.obtenirSalle().supprimerItemSalle();
         } else if (!(i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 100)) {
             message += "Voyons, vous ne pouvez lire que des livres...\n\n";
         }
@@ -203,7 +211,7 @@ public class PersonnagePrincipal extends Personnage {
         Ennemi e = Zombie.chaineVersEnnemi(ennemi);
         String message = "";
 
-        if (salle.contientEnnemi() == false) {
+        if (e.obtenirSalle().contientEnnemi() == false) {
             message += "Vous ne pouvez pas parler dans le vide... du moins cela ne servirai à rien..";
         } else if (e.pointsVie == 0) {
             message += "C'est pas sur qu'il vous réponde....";
@@ -282,6 +290,10 @@ public class PersonnagePrincipal extends Personnage {
         message += inventairePersonnage.afficher();
 
         return message;
+    }
+
+    public boolean aGagné() {
+        return obtenirCourage() == Jeux.pointsPourGagner();
     }
 
     /**

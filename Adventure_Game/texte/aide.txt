@@ -1,4 +1,4 @@
-﻿Bonjour et bienvenue dans l'aide.
+Bonjour et bienvenue dans l'aide.
 Chaque salle seront différentes. Dans celle-ci vous pourrez retrouver plusieurs éléments : 
 				 - Des items ( couteau, pistolet, hache, etc..)
 				 - Des ennemis ( Zombies, Boss zombies)

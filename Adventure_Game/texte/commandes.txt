@@ -1,4 +1,4 @@
-﻿ - lire + livre : permet de lire le livre se trouvant dans votre inventaire.
+ - lire + livre : permet de lire le livre se trouvant dans votre inventaire.
  - parler + nomPersonnage : permet de discuter avec un personnage au choix.
  - utiliser + objet : permet d'utiliser un objet de votre inventaire.
  - examiner : voir ce qui se trouve dans la salle

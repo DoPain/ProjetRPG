@@ -2,7 +2,6 @@ package adventure_game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -99,6 +98,10 @@ public class ControleurJeux implements Initializable {
             affichageInventaire();
             affichageLocalisation();
             affichageCaracteristiques();
+            if(p.obtenirPointsVie()<0 || p.aGagné()){
+                entrerCommande.setDisable(true);
+            }
+            
         }
 
     }

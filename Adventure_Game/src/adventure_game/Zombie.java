@@ -15,7 +15,7 @@ public enum Zombie  {
     ZEYROK(80,60,0,30),
     LOUZI(100,65,0,50),
     ZOMBIE2(60,20,0,15),
-    ZOMBIE1(40,4,0,10),
+    ZOMBIE1(40,10,0,10),
     DOVAKIN(500,100,0,100),
     CADAVRE(0,0,0,0),
     JAMES(5,2,0,0);
@@ -63,6 +63,10 @@ public enum Zombie  {
      */
     private static Ennemi zombieVersEnnemi(Zombie z){
         return new Ennemi(z.name(),z.pointsVie, z.degats,z.armure,z.couragePerdu, null);
+    }
+
+    public int obtenirCouragePerdu() {
+        return couragePerdu;
     }
        
            
