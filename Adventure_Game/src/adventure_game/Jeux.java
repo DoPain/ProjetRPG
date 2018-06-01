@@ -35,7 +35,7 @@ public class Jeux {
      * @param s
      * @return
      */
-    public String traiterCommande(String s) {
+    public String traiterCommande(String s) throws IOException {
         String message = "";
         String start = s.toLowerCase();
         String[] arguments = start.split(" ");

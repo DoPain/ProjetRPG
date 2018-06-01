@@ -1,5 +1,6 @@
 package adventure_game;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
@@ -72,7 +73,7 @@ public class ControleurJeux implements Initializable {
      * @param e
      * @throws InterruptedException
      */
-    public void saisieCommande(KeyEvent e) throws InterruptedException {
+    public void saisieCommande(KeyEvent e) throws InterruptedException, IOException {
         if (KeyCode.ENTER == e.getCode()) {
             String affichage;
 

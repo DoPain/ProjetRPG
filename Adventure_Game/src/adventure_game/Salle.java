@@ -108,10 +108,10 @@ public class Salle{
     public String afficherItem() {
         if (objet != null){
             if (objet.obtenirDureeVie() != null && objet.obtenirMunitions() == null){
-                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". " + "Cette arme possède " + objet.obtenirDegats() + " de dégats d'attaque et lui reste " 
+                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". " + "Cet objet possède " + objet.obtenirDegats() + " de dégats d'attaque et lui reste " 
                         + objet.obtenirDureeVie() + " de durée de vie" + "\n\n");
             }else if (objet.obtenirMunitions() != null && objet.obtenirDureeVie() == null){
-                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". " + "Cette arme possède " + objet.obtenirDegats() + " de dégats d'attaque et lui reste " 
+                return ("Dans cette salle il y a : " + objet.obtenirNom() + ". " + "Cet objet possède " + objet.obtenirDegats() + " de dégats d'attaque et lui reste " 
                         + objet.obtenirMunitions() + " de munitions" + "\n\n");
             }else if (objet.obtenirDureeVie() == null && objet.obtenirMunitions() == null){
                 return ("Dans cette salle il y a : " + objet.obtenirNom() + ". \n\n");

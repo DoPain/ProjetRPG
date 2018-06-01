@@ -7,17 +7,18 @@ package adventure_game;
 public enum Item {
 
 
-    PISTOLET(null,10,40),
-    M4(null,30,50),
-    COUTEAU(10,null,20),
-    HACHE(15,null,25),
-    ARBALETTE(null,6,25),
-    POMME(2,null,0),
-    KEVLAR(1,null,0),
-    KEVLAR_LOURD(1,null,1),
-    LIVRE(666,null,0);
+    PISTOLET("pistolet",null,10,40),
+    M4("m4",null,30,50),
+    COUTEAU("couteau",10,null,20),
+    HACHE("hache",15,null,25),
+    ARBALETTE("arbalette",null,6,25),
+    POMME("pomme",2,null,0),
+    KEVLAR("kevlar",1,null,0),
+    KEVLAR_LOURD("kevlar lourd",1,null,1),
+    LIVRE("livre",666,null,0);
 
 
+    private String nom;
     
     /**
      * Correspond à la durée de vie de l'objet. Cette durée de vie est uniquement associé à une 
@@ -42,7 +43,8 @@ public enum Item {
      * @param munitions
      * @param degats
      */
-    Item(Integer dureeVie, Integer munitions, int degats){
+    Item(String nom,Integer dureeVie, Integer munitions, int degats){
+        this.nom = nom;
         this.dureeVie = dureeVie;
         this.munitions = munitions;
         this.degats = degats;
@@ -67,7 +69,7 @@ public enum Item {
      * @return
      */
     private static Objet armeVersObjet(Item a){
-        return new Objet(0,a.name(), a.dureeVie, a.munitions, a.degats);
+        return new Objet(0,a.nom, a.dureeVie, a.munitions, a.degats);
     }
     
 }

@@ -56,7 +56,7 @@ public class PersonnagePrincipal extends Personnage {
      * @param arme
      * @return
      */
-    public String attaquer(String arme) {
+    public String attaquer(String arme) throws FileNotFoundException, IOException {
         Objet i = inventairePersonnage.obtenirObjet(arme);
         String message = "";
 
@@ -69,11 +69,13 @@ public class PersonnagePrincipal extends Personnage {
 
             message += ("Vous avez décider d'attaqué avec : " + i.obtenirNom() + "\n");
             attaquerAvecArme(i, obtenirSalle().obtenirEnnemi());
-
-            obtenirSalle().obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
-
-
+            
             message += ("Vous venez de reveiller l'ennemi... celui riposte! \n\n");
+            obtenirSalle().obtenirEnnemi().ennemiAttaque(this); //Ceci correspond à la riposte de l'ennemi
+            InputStream a = new FileInputStream("sons/ou.wav");
+            AudioStream b = new AudioStream(a);           
+            AudioPlayer.player.start(b); 
+            
 
             if (obtenirSalle().obtenirEnnemi().obtenirPointsVie() > 0) {
                 message += ("Points de vie de l'ennemi après l'attaque " + obtenirSalle().obtenirEnnemi().pointsVie + "\n");
@@ -123,7 +125,8 @@ public class PersonnagePrincipal extends Personnage {
         } else if (i == null) {
             message += "L'objet que vous voulez utiliser n'est pas présent dans votre inventaire\n\n";
 
-        } else if (i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 2) {
+        } //else if (i.obtenirMunitions() == null && i.obtenirDegats() == 0 && i.obtenirDureeVie() == 2) {
+        else if (i.obtenirNom().equals("pomme")){
             if (this.pointsVie < 96) {
                 this.pointsVie += ptsVie;
                 message += ("Vous avez décidé d'utilisé " + i.obtenirNom() + "." + " Vous avez gagné " + ptsVie + " de points de vie. \n\n");
@@ -211,14 +214,19 @@ public class PersonnagePrincipal extends Personnage {
         Ennemi e = Zombie.chaineVersEnnemi(ennemi);
         String message = "";
 
-        if (e.obtenirSalle().contientEnnemi() == false) {
-            message += "Vous ne pouvez pas parler dans le vide... du moins cela ne servirai à rien..";
-        } else if (e.pointsVie == 0) {
+        //if (e.obtenirSalle().contientEnnemi() == false) {
+        //    message += "Vous ne pouvez pas parler dans le vide... du moins cela ne servirai à rien..";
+        //} 
+         if (e.pointsVie == 0) {
             message += "C'est pas sur qu'il vous réponde....";
         } else if (e.obtenirDegats() < 9) {
             message += Jeux.LireFichier("texte/dialogue.txt");
         } else {
-            message += "Il est surement dangereux de vouloir parler avec ce personnage...\n\n";
+            message += "Il est surement dangereux de vouloir parler avec ce personnage...\n";
+            obtenirSalle().obtenirEnnemi().ennemiAttaque(this);
+            message+="Je vous l'avait, vous l'avez reveillé, il vous a donc attaqué. " 
+                    + "Vous avez perdu " + obtenirSalle().obtenirEnnemi().obtenirDegats() 
+                    + " de points de vies";
         }
 
         return message;
@@ -259,7 +267,7 @@ public class PersonnagePrincipal extends Personnage {
      */
     public String ramasser(Objet i) {
         String message = "";
-        if (this.obtenirSalle().contientItem() && this.obtenirSalle().obtenirItem().equals(i)) {
+        if (this.obtenirSalle().contientItem() && this.obtenirSalle().obtenirItem().obtenirNom().equals(i)) {
             message += inventairePersonnage.ajouter(i);
             salle.supprimerItemSalle();
         } else {

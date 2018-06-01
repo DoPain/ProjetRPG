@@ -70,7 +70,6 @@ class FormatCsv {
     ArrayList<String> traiterLigne(final String ligne) {
         ArrayList<String> liste = new ArrayList<>();
         if (ligne != null) {
-            // allez hop, un automate !
             int i = 0;
             final int DEBUT_CHAMP = 0;
             final int DANS_CHAMP_NON_ECHAPPE = 1;
